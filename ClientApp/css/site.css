@@ -14,7 +14,7 @@
     color: #739393;
 }
 
-.menu-item, a {
+.menu-item {
     display: block;
     padding: 10px 10px;
     font-family: 'Open Sans';
@@ -25,15 +25,36 @@
     height: 35px;
 }
 
-a, a:hover, a:active, a:focus {
-    all: unset;
-}
-
 .menu-item:hover, .menu-item:active, .menu-item:focus {
     border-bottom: 3px solid lightseagreen;
     color: #537373;
 }
 
-.menu-item:focus {
-    border-bottom: 3px solid lightseagreen;
+a, a:hover, a:active, a:focus {
+    all: unset;
+    height: 35px;
+}
+
+a.active-nav {
+    color: #212121;
+}
+
+a.active-nav:hover {
+    color: #537373;
+    /* do border here */
+}
+
+.main-image {
+    background-color: darkmagenta;
+    height: calc(100vh - 40px);
+    width: 100vw;
+}
+
+.footer {
+    height: 300px;
+    background-color: gray;
+}
+
+.home-page-wrapper {
+    overflow-x: hidden;
 }

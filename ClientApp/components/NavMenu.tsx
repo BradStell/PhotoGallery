@@ -9,17 +9,17 @@ export class NavMenu extends React.Component<{}, {}> {
                     <div className="menu-container">
                         <ul className="menu-container">
                             <li className="menu-item">
-                                <NavLink to={ '/' } exact>
+                                <NavLink to={ '/' } exact activeClassName='active-nav'>
                                     <span>Home</span>
                                 </NavLink>
                             </li>
                             <li className="menu-item">
-                                <NavLink to={ '/counter' } exact>
+                                <NavLink to={ '/counter' } exact activeClassName='active-nav'>
                                     <span>Galleries</span>
                                 </NavLink>
                             </li>
                             <li className="menu-item">
-                                <NavLink to={ '/fetchdata' } exact>
+                                <NavLink to={ '/fetchdata' } exact activeClassName='active-nav'>
                                     <span>About Me</span>
                                 </NavLink>
                             </li>
