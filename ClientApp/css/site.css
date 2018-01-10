@@ -1,0 +1,39 @@
+.main-header-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    border-bottom: 2px solid #939393;
+    height: 40px;
+}
+
+.menu-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #739393;
+}
+
+.menu-item, a {
+    display: block;
+    padding: 10px 10px;
+    font-family: 'Open Sans';
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 1s ease;
+    color: #739393;
+    height: 35px;
+}
+
+a, a:hover, a:active, a:focus {
+    all: unset;
+}
+
+.menu-item:hover, .menu-item:active, .menu-item:focus {
+    border-bottom: 3px solid lightseagreen;
+    color: #537373;
+}
+
+.menu-item:focus {
+    border-bottom: 3px solid lightseagreen;
+}
