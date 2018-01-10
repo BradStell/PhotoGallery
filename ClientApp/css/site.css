@@ -16,13 +16,15 @@
 
 .menu-item {
     display: block;
-    padding: 10px 10px;
+    padding: 10px 0px;
     font-family: 'Open Sans';
     font-weight: 700;
     cursor: pointer;
     transition: color 1s ease;
     color: #739393;
     height: 35px;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .menu-item:hover, .menu-item:active, .menu-item:focus {
@@ -30,13 +32,22 @@
     color: #537373;
 }
 
+.menu-item > a.active-nav {
+    border-bottom: 3px solid lightseagreen;
+    color: #537373;
+}
+
 a, a:hover, a:active, a:focus {
     all: unset;
     height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 a.active-nav {
     color: #212121;
+    margin-bottom: 3px;
+    padding-bottom: 3px;
 }
 
 a.active-nav:hover {
@@ -44,10 +55,20 @@ a.active-nav:hover {
     /* do border here */
 }
 
+a.active-nav:active,a.active-nav:focus {
+    color: #537373;
+    border-bottom: 3px solid lightseagreen;
+    /* do border here */
+}
+
 .main-image {
-    background-color: darkmagenta;
     height: calc(100vh - 40px);
     width: 100vw;
+    background-position: center top;
+    background-position-x: 50%;
+    background-position-y: 0%;
+    background-size: cover;
+    background-image: url('~/GalleryImages/dolmites.png');
 }
 
 .footer {
