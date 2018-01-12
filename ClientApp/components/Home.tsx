@@ -11,7 +11,8 @@ export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> 
     private _imageList: string[] = [
         'dolmites.png',
         'clt-pink.jpg',
-        'lafoten.jpg'
+        'lafoten.jpg',
+        'russian_winter.jpg'
     ]
 
     constructor() {
