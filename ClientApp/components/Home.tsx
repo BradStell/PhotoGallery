@@ -44,14 +44,14 @@ export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> 
     public render() {
         return (
             <div className="home-page-wrapper">
-                <div style={{ display: 'flex', flexFlow: 'row nowrap'}}>
-                    <button onClick={this.goToPreviousImage}>Prev</button>
-                    <button onClick={this.goToNextImage}>Next</button>
-                </div>
                 <div className="carousel-wrapper">
                     <ul className="img-carousel">
                         { this.buildImageCarousel() }
                     </ul>
+                </div>
+                <div className="carousel-nav-button-wrapper">
+                    <div className="nav-arrow prev" onClick={this.goToPreviousImage}></div>
+                    <div className="nav-arrow next" onClick={this.goToNextImage}></div>
                 </div>
                 <div className="footer" />
             </div>
