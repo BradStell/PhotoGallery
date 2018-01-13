@@ -14,7 +14,7 @@ export class NavMenu extends React.Component<{}, {}> {
                                 </NavLink>
                             </li>
                             <li className="menu-item">
-                                <NavLink to={ '/counter' } exact activeClassName='active-nav'>
+                                <NavLink to={ '/galleries' } exact activeClassName='active-nav'>
                                     <span>Galleries</span>
                                 </NavLink>
                             </li>

@@ -7,13 +7,15 @@ interface ILocalState {
 }
 
 export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> {
-    
+
     private _imageList: string[] = [
+        'dolomites_landscape_photography_trecime_3.jpg',
         'dolmites.png',
         'clt-pink.jpg',
         'lafoten.jpg',
-        'russian_winter.jpg'
-    ]
+        'russian_winter.jpg',
+        'dolomites_milkyway_photography_trecime_1.jpg'
+    ];
 
     constructor() {
         super();
