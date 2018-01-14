@@ -32,6 +32,7 @@
     "webpack-hot-middleware": "2.18.2"
   },
   "dependencies": {
-    "react-autobind": "1.0.6"
+    "react-autobind": "1.0.6",
+    "styled-components": "^2.4.0"
   }
 }

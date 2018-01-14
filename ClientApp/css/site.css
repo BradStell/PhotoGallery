@@ -1,3 +1,7 @@
+.center-wrapper {
+    text-align: center;
+}
+
 .main-header-wrapper {
     display: flex;
     flex-flow: row nowrap;
@@ -15,7 +19,7 @@
     color: #739393;
 }
 
-.menu-item {
+/* .menu-item {
     display: block;
     padding: 10px 0px;
     font-family: 'Open Sans';
@@ -36,7 +40,7 @@
 .menu-item > a.active-nav {
     border-bottom: 3px solid lightseagreen;
     color: #537373;
-}
+} */
 
 a, a:hover, a:active, a:focus {
     all: unset;

@@ -13,9 +13,9 @@ namespace PhotoGallery.Controllers
     {
         private IDataAccessService _dataAccessService;
 
-        public DataController(IDataAccessService service)
+        public DataController(IDataAccessService dataService)
         {
-            _dataAccessService = service;
+            _dataAccessService = dataService;
         }
 
         [HttpGet("[action]")]
@@ -28,6 +28,7 @@ namespace PhotoGallery.Controllers
             catch (Exception ex)
             {
                 // TODO figure out logging
+                Console.WriteLine(ex);
                 return BadRequest();
             }
         }
