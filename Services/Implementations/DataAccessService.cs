@@ -4,16 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using PhotoGallery.Models;
 using PhotoGallery.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace PhotoGallery.Services.Implementations
 {
     public class DataAccessService : IDataAccessService
     {
         private readonly ApplicationDbContext _db;
+        private readonly ILogger _logger;
 
-        public DataAccessService(ApplicationDbContext context)
+        public DataAccessService(ApplicationDbContext context, ILogger<DataAccessService> logger)
         {
             _db = context;
+            _logger = logger;
         }
 
         public List<Image> GetCarouselImages()
@@ -25,7 +28,7 @@ namespace PhotoGallery.Services.Implementations
             catch (Exception ex)
             {
                 // TODO figure out logging
-                Console.WriteLine(ex);
+                _logger.LogError("Error", ex);
                 return null;
             }
             
