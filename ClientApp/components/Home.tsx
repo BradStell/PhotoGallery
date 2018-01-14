@@ -5,6 +5,7 @@ import Carousel from './Carousel';
 import Footer from './Footer';
 import { IImage} from '../interfaces/ModelInterfaces';
 import { DataService, IDataService } from '../services/dataService';
+import styled from 'styled-components';
 
 const dataService: IDataService = new DataService();
 
@@ -12,6 +13,12 @@ interface ILocalState {
     currentImage: number;
     _imageList: IImage[];
 }
+
+const Wrapper: any = styled.div`
+    overflow-x: hidden;
+    height: calc(100vh - 40px);
+    position: relative;
+`;
 
 export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> {
 
@@ -32,10 +39,10 @@ export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> 
     public render() {
 
         return (
-            <div className="home-page-wrapper">
+            <Wrapper className='home-page-wrapper'>
                 <Carousel imageList={this.state._imageList} />
                 <Footer />
-            </div>
+            </Wrapper>
         );
     }
 }

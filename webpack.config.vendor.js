@@ -26,7 +26,8 @@ module.exports = (env) => {
                 'react-dom',
                 'react-router-dom',
                 'jquery',
-                'react-autobind'
+                'react-autobind',
+                'styled-components'
             ],
         },
         output: {

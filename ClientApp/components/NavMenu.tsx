@@ -1,20 +1,44 @@
 import * as React from 'react';
 import MenuItem from './MenuItem';
+import styled from 'styled-components';
+
+const Wrapper: any = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    border-bottom: 2px solid #939393;
+    height: 40px;
+    background-color: #FAFAFA;
+`;
+
+const MenuContainer: any = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #739393;
+`;
+
+const MenuContainerUl: any = styled.ul`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #739393;
+`;
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
         return (
-            <div>
-                <div id="main-header" className="main-header-wrapper">
-                    <div className="menu-container">
-                        <ul className="menu-container">
-                            <MenuItem linkTo={'/'} label={'Home'} />
-                            <MenuItem linkTo={'/galleries'} label={'Galleries'} />
-                            <MenuItem linkTo={'/about'} label={'About Me'} />
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <Wrapper id="main-header">
+                <MenuContainer>
+                    <MenuContainerUl>
+                        <MenuItem linkTo={'/'} label={'Home'} />
+                        <MenuItem linkTo={'/galleries'} label={'Galleries'} />
+                        <MenuItem linkTo={'/about'} label={'About Me'} />
+                    </MenuContainerUl>
+                </MenuContainer>
+            </Wrapper>
         );
     }
 }
