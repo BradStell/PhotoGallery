@@ -29,11 +29,7 @@ namespace PhotoGallery
         {
             services.AddMvc();
 
-            // For using connection string in web.config
-            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
-            // hard coded connection string
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=photogallery.db"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
