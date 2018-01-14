@@ -6,6 +6,6 @@ namespace PhotoGallery.Services.Interfaces
 {
     public interface IDataAccessService
     {
-        IEnumerable<Image> GetCarouselImages();
+        List<Image> GetCarouselImages();
     }
 }

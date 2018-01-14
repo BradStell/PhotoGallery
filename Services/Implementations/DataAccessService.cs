@@ -16,15 +16,16 @@ namespace PhotoGallery.Services.Implementations
             _db = context;
         }
 
-        public IEnumerable<Image> GetCarouselImages()
+        public List<Image> GetCarouselImages()
         {
             try
             {
-                return _db.Images.Where(image => image.IsCarouselImage == true).ToList();;
+                return _db.Images.Where(image => image.IsCarouselImage == true).ToList();
             }
             catch (Exception ex)
             {
                 // TODO figure out logging
+                Console.WriteLine(ex);
                 return null;
             }
             

@@ -19,16 +19,16 @@ namespace PhotoGallery.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Image> GetCarouselImages()
+        public IActionResult GetCarouselImages()
         {
             try
             {
-                return _dataAccessService.GetCarouselImages();
+                return Ok(_dataAccessService.GetCarouselImages());
             }
             catch (Exception ex)
             {
                 // TODO figure out logging
-                return null;
+                return BadRequest();
             }
         }
     }
