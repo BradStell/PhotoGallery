@@ -11,7 +11,7 @@ using System;
 namespace PhotoGallery.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180113180631_SeedData1")]
+    [Migration("20180113230302_SeedData1")]
     partial class SeedData1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace PhotoGallery.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("Gallery_Id");
+                    b.Property<Guid?>("Gallery_Id");
 
                     b.Property<bool?>("IsCarouselImage");
 
@@ -70,8 +70,7 @@ namespace PhotoGallery.Migrations
                 {
                     b.HasOne("PhotoGallery.Models.Gallery", "Gallery")
                         .WithMany()
-                        .HasForeignKey("Gallery_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Gallery_Id");
                 });
 #pragma warning restore 612, 618
         }

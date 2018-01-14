@@ -14,6 +14,7 @@ namespace PhotoGallery
     {
         public static void Main(string[] args)
         {
+            SeedTestData.Initialize();
             BuildWebHost(args).Run();
         }
 

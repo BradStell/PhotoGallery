@@ -42,7 +42,7 @@ namespace PhotoGallery.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("Gallery_Id");
+                    b.Property<Guid?>("Gallery_Id");
 
                     b.Property<bool?>("IsCarouselImage");
 
@@ -69,8 +69,7 @@ namespace PhotoGallery.Migrations
                 {
                     b.HasOne("PhotoGallery.Models.Gallery", "Gallery")
                         .WithMany()
-                        .HasForeignKey("Gallery_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Gallery_Id");
                 });
 #pragma warning restore 612, 618
         }

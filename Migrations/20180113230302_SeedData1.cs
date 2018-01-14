@@ -13,7 +13,7 @@ namespace PhotoGallery.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Gallery_Id = table.Column<Guid>(nullable: false),
+                    Gallery_Id = table.Column<Guid>(nullable: true),
                     IsCarouselImage = table.Column<bool>(nullable: true),
                     PathName = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true)
@@ -59,7 +59,7 @@ namespace PhotoGallery.Migrations
                 column: "Gallery_Id",
                 principalTable: "Galleries",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
