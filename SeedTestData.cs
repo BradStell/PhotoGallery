@@ -2,16 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using PhotoGallery.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PhotoGallery
 {
     public static class SeedTestData
     {
-        public static void Initialize()
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var _db = new ApplicationDbContext())
+            using (var _db = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-
                 if (_db.Images.Any())
                 {
                     return;   // DB has been seeded
@@ -47,14 +47,6 @@ namespace PhotoGallery
                         Id = new Guid(),
                         PathName = @"dolomites_milkyway_photography_trecime_1.jpg",
                         Title = @"Dolomites Milkyway",
-                        IsCarouselImage = true,
-                        Gallery = null
-                    },
-                    new Image()
-                    {
-                        Id = new Guid(),
-                        PathName = @"dolmites.png",
-                        Title = @"Dolomites",
                         IsCarouselImage = true,
                         Gallery = null
                     },

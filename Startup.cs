@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using PhotoGallery.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PhotoGallery
 {
@@ -26,6 +28,12 @@ namespace PhotoGallery
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // For using connection string in web.config
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            // hard coded connection string
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=photogallery.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,13 +53,16 @@ namespace PhotoGallery
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            /*
+                Serve static files in wwwroot
+            */
             app.UseStaticFiles(new StaticFileOptions()
             {
                 OnPrepareResponse = ctx =>
                 {
                     ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=600");
                 }
-            });   // for wwwroot
+            });
 
             /*
                 serve static files from <root>/Gallery

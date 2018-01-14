@@ -7,10 +7,7 @@ namespace PhotoGallery.Models
         public DbSet<Image> Images { get; set; }
         public DbSet<Gallery> Galleries { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=photogallery.db");
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

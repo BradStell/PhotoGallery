@@ -27,7 +27,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> 
             currentImage: 0
         }
 
-        fetch('api/SampleData/GetCarouselImages')
+        fetch('api/Data/GetCarouselImages')
             .then(response => response.json())
             .then(data => {
                 this.setState(prevState => ({ _imageList: data }));
