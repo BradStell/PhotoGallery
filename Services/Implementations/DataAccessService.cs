@@ -2,34 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using PhotoGallery.Models;
 using PhotoGallery.Services.Interfaces;
 
-namespace PhotoGallery.Controllers
+namespace PhotoGallery.Services.Implementations
 {
-    [Route("api/[controller]")]
-    public class DataController : Controller
+    public class DataAccessService : IDataAccessService
     {
-        private IDataAccessService _dataAccessService;
+        private readonly ApplicationDbContext _db;
 
-        public DataController(IDataAccessService service)
+        public DataAccessService(ApplicationDbContext context)
         {
-            _dataAccessService = service;
+            _db = context;
         }
 
-        [HttpGet("[action]")]
         public IEnumerable<Image> GetCarouselImages()
         {
             try
             {
-                return _dataAccessService.GetCarouselImages();
+                return _db.Images.Where(image => image.IsCarouselImage == true).ToList();;
             }
             catch (Exception ex)
             {
                 // TODO figure out logging
                 return null;
             }
+            
         }
     }
 }
