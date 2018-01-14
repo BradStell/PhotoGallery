@@ -2,19 +2,15 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import autoBind from 'react-autobind';
 import Carousel from './Carousel';
+import Footer from './Footer';
+import { IImage} from '../interfaces/ModelInterfaces';
+import { DataService, IDataService } from '../services/dataService';
 
-interface Image {
-    id: string;
-    pathName: string;
-    title: string;
-    isCarouselImage: boolean;
-    gallery_Id: string;
-    gallery: any;
-}
+const dataService: IDataService = new DataService();
 
 interface ILocalState {
     currentImage: number;
-    _imageList: Image[];
+    _imageList: IImage[];
 }
 
 export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> {
@@ -28,11 +24,9 @@ export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> 
             currentImage: 0
         }
 
-        fetch('api/Data/GetCarouselImages')
-            .then(response => response.json() as Promise<Image>)
-            .then(data => {
-                this.setState(prevState => ({ _imageList: data }));
-            });
+        dataService.getCarouselImages().then(data => {
+            this.setState(prevState => ({ _imageList: data }))
+        });
     }
     
     public render() {
@@ -40,7 +34,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> 
         return (
             <div className="home-page-wrapper">
                 <Carousel imageList={this.state._imageList} />
-                <div className="footer" />
+                <Footer />
             </div>
         );
     }
