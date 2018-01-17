@@ -29,13 +29,13 @@ export class Home extends React.Component<RouteComponentProps<{}>, ILocalState> 
         this.state = {
             _imageList: [],
             currentImage: 0
-        }
+        };
 
-        dataService.getCarouselImages().then(data => {
-            this.setState(prevState => ({ _imageList: data }))
+        dataService.getCarouselImages().then( (data) => {
+            this.setState( (prevState) => ({ _imageList: data }));
         });
     }
-    
+
     public render() {
 
         return (
