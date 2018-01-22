@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import autoBind from 'react-autobind';
-import { RouteComponentProps } from 'react-router';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import autoBind from "react-autobind";
+import { RouteComponentProps } from "react-router";
+import styled from "styled-components";
 
 interface ILocalState {
   title: string;
   isCarouselImage: boolean;
   isGalleryImage: boolean;
- }
+  selectedGallery: string;
+  newGalleryName: string;
+}
 
-interface ILocalProps { }
+interface ILocalProps {}
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const FormTitle = styled.h2`
-
-`;
+const FormTitle = styled.h2``;
 
 const Form = styled.form`
   margin-top: 2rem;
@@ -33,13 +33,9 @@ const Label = styled.label`
   margin-right: 1rem;
 `;
 
-const TextInput = styled.input`
+const TextInput = styled.input``;
 
-`;
-
-const CheckboxInput = styled.input`
-
-`;
+const CheckboxInput = styled.input``;
 
 const UploadImageButton = styled.button`
   margin: 0 auto;
@@ -51,40 +47,55 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
     autoBind(this);
 
     this.state = {
-      title: '',
+      title: "",
       isCarouselImage: false,
-      isGalleryImage: false
+      isGalleryImage: false,
+      selectedGallery: "",
+      newGalleryName: ""
     };
   }
 
-  private handleImageTitleChange (e) {
+  private handleImageTitleChange(e) {
     e.preventDefault();
     this.setState({
       title: e.target.value
     });
   }
 
-  private handleCarouselImageCheckbox () {
+  private handleCarouselImageCheckbox() {
     this.setState({
       isCarouselImage: !this.state.isCarouselImage
     });
   }
 
-  private handleGalleryImageCheckbox () {
+  private handleGalleryImageCheckbox() {
     this.setState({
       isGalleryImage: !this.state.isGalleryImage
     });
   }
 
-  private HandleImageUpload(e) {
+  private handleGallerySelectChange(e) {
+    this.setState({
+      selectedGallery: e.target.value
+    });
+  }
+
+  private handleImageUpload(e) {
     e.preventDefault();
+    console.log(this.state);
+  }
+
+  private handleNewGalleryNameChange(e) {
+    this.setState({
+      newGalleryName: e.target.value
+    });
   }
 
   public render() {
     return (
       <Wrapper>
         <FormTitle>Image Upload Form</FormTitle>
-        <Form id='image-upload-form'>
+        <Form id="image-upload-form">
           <FormField>
             <Label htmlFor="image-title">Image Title:</Label>
             <TextInput
@@ -96,7 +107,9 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
             />
           </FormField>
           <FormField>
-            <Label htmlFor="carousel-image-checkbox">Is this a carousel Image?</Label>
+            <Label htmlFor="carousel-image-checkbox">
+              Is this a carousel Image?
+            </Label>
             <CheckboxInput
               type="checkbox"
               name="carousel-image-checkbox"
@@ -106,7 +119,9 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
             />
           </FormField>
           <FormField>
-            <Label htmlFor="gallery-image-checkbox">Is this a gallery Image?</Label>
+            <Label htmlFor="gallery-image-checkbox">
+              Is this a gallery Image?
+            </Label>
             <CheckboxInput
               type="checkbox"
               name="gallery-image-checkbox"
@@ -115,8 +130,38 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
               checked={this.state.isGalleryImage}
             />
           </FormField>
+          {this.state.isGalleryImage && (
+            <FormField>
+              <Label htmlFor="gallery-select">
+                Select a gallery for the image.
+              </Label>
+              <select onChange={this.handleGallerySelectChange} name="Gallery">
+                <option value="gallery1">Gallery 1</option>
+                <option value="gallery2">Gallery 2</option>
+                <option value="gallery3">Gallery 3</option>
+                <option value="newGallery">New Gallery</option>
+              </select>
+            </FormField>
+          )}
+          {this.state.isGalleryImage &&
+            this.state.selectedGallery == "newGallery" && (
+              <FormField>
+                <Label htmlFor="new-gallery-name">
+                  Enter a name for the new gallery.
+                </Label>
+                <TextInput
+                  type="text"
+                  name="new-gallery-name"
+                  id="new-gallery-name"
+                  onChange={this.handleNewGalleryNameChange}
+                  value={this.state.newGalleryName}
+                />
+              </FormField>
+            )}
           <FormField>
-            <UploadImageButton onClick={this.HandleImageUpload}>Upload Image</UploadImageButton>
+            <UploadImageButton onClick={this.handleImageUpload}>
+              Upload Image
+            </UploadImageButton>
           </FormField>
         </Form>
       </Wrapper>
