@@ -9,6 +9,7 @@ interface ILocalState {
   isGalleryImage: boolean;
   selectedGallery: string;
   newGalleryName: string;
+  newImage: string;
 }
 
 interface ILocalProps {}
@@ -18,7 +19,9 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const FormTitle = styled.h2``;
+const FormTitle = styled.h2`
+  text-align: center;
+`;
 
 const Form = styled.form`
   margin-top: 2rem;
@@ -51,7 +54,8 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
       isCarouselImage: false,
       isGalleryImage: false,
       selectedGallery: "",
-      newGalleryName: ""
+      newGalleryName: "",
+      newImage: ""
     };
   }
 
@@ -88,6 +92,12 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
   private handleNewGalleryNameChange(e) {
     this.setState({
       newGalleryName: e.target.value
+    });
+  }
+
+  private handleNewImageSelection(e) {
+    this.setState({
+      newImage: e.target.value
     });
   }
 
@@ -159,7 +169,21 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
               </FormField>
             )}
           <FormField>
-            <UploadImageButton onClick={this.handleImageUpload}>
+            <Label htmlFor="new-image">Select your image</Label>
+            <input
+              type="file"
+              name="new-image"
+              id="new-image"
+              accept="image/*"
+              onChange={this.handleNewImageSelection}
+              value={this.state.newImage}
+            />
+          </FormField>
+          <FormField>
+            <UploadImageButton
+              onClick={this.handleImageUpload}
+              disabled={!this.state.title || !this.state.newImage}
+            >
               Upload Image
             </UploadImageButton>
           </FormField>
