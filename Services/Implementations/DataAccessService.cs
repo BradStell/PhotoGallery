@@ -8,30 +8,36 @@ using Microsoft.Extensions.Logging;
 
 namespace PhotoGallery.Services.Implementations
 {
-    public class DataAccessService : IDataAccessService
+  public class DataAccessService : IDataAccessService
+  {
+    private readonly ApplicationDbContext _db;
+    private readonly ILogger _logger;
+
+    public DataAccessService(ApplicationDbContext context, ILogger<DataAccessService> logger)
     {
-        private readonly ApplicationDbContext _db;
-        private readonly ILogger _logger;
-
-        public DataAccessService(ApplicationDbContext context, ILogger<DataAccessService> logger)
-        {
-            _db = context;
-            _logger = logger;
-        }
-
-        public List<Image> GetCarouselImages()
-        {
-            try
-            {
-                return _db.Images.Where(image => image.IsCarouselImage == true).ToList();
-            }
-            catch (Exception ex)
-            {
-                // TODO figure out logging
-                _logger.LogError("Error", ex);
-                return null;
-            }
-            
-        }
+      _db = context;
+      _logger = logger;
     }
+
+    public List<Image> GetCarouselImages()
+    {
+      try
+      {
+        return _db.Images.Where(image => image.IsCarouselImage == true).ToList();
+      }
+      catch (Exception ex)
+      {
+        // TODO figure out logging
+        _logger.LogError("Error", ex);
+        return null;
+      }
+
+    }
+
+    public void UploadNewImage(dynamic image)
+    {
+      _db.Images.Add(image);
+      _db.SaveChanges();
+    }
+  }
 }

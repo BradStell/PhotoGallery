@@ -9,31 +9,45 @@ using PhotoGallery.Services.Interfaces;
 
 namespace PhotoGallery.Controllers
 {
-    [Route("api/[controller]")]
-    public class DataController : Controller
+  [Route("api/[controller]")]
+  public class DataController : Controller
+  {
+    private readonly IDataAccessService _dataAccessService;
+    private readonly ILogger _logger;
+
+    public DataController(IDataAccessService dataService, ILogger<DataController> logger)
     {
-        private readonly IDataAccessService _dataAccessService;
-        private readonly ILogger _logger;
-
-        public DataController(IDataAccessService dataService, ILogger<DataController> logger)
-        {
-            _dataAccessService = dataService;
-            _logger = logger;
-        }
-
-        [HttpGet("[action]")]
-        public IActionResult GetCarouselImages()
-        {
-            try
-            {
-                return Ok(_dataAccessService.GetCarouselImages());
-            }
-            catch (Exception ex)
-            {
-                // TODO figure out logging
-                _logger.LogError("Error", ex);
-                return BadRequest();
-            }
-        }
+      _dataAccessService = dataService;
+      _logger = logger;
     }
+
+    [HttpGet("[action]")]
+    public IActionResult GetCarouselImages()
+    {
+      try
+      {
+        return Ok(_dataAccessService.GetCarouselImages());
+      }
+      catch (Exception ex)
+      {
+        // TODO figure out logging
+        _logger.LogError("Error", ex);
+        return BadRequest();
+      }
+    }
+
+    [HttpGet("[action]")]
+    public void UploadNewImage(dynamic image)
+    {
+      try
+      {
+        _dataAccessService.UploadNewImage(image);
+      }
+      catch (Exception ex)
+      {
+        // TODO figure out logging
+        _logger.LogError("Error", ex);
+      }
+    }
+  }
 }

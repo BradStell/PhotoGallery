@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import autoBind from "react-autobind";
 import { RouteComponentProps } from "react-router";
 import styled from "styled-components";
+import { DataService, IDataService } from "../services/dataService";
+
+const dataService: IDataService = new DataService();
 
 interface ILocalState {
   title: string;
@@ -87,6 +90,7 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
   private handleImageUpload(e) {
     e.preventDefault();
     console.log(this.state);
+    dataService.uploadNewImage(this.state);
   }
 
   private handleNewGalleryNameChange(e) {
