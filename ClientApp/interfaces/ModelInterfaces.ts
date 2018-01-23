@@ -6,11 +6,11 @@ export interface IImage {
     isCarouselImage: boolean;
     gallery_Id: string;
     gallery: IGallery;
-};
+}
 
 export interface IGallery {
     id: string;
     title: string;
     coverImage: IImage;
     createDateTime: any;
-};
+}

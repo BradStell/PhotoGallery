@@ -8,22 +8,22 @@ export interface IDataService {
 export class DataService implements IDataService {
     public getCarouselImages() {
         return fetch('api/Data/GetCarouselImages')
-            .then(response => response.json() as Promise<IImage>)
-            .then(data => {
+            .then( (response) => response.json() as Promise<IImage>)
+            .then((data) => {
                 return data;
             })
-            .catch(er => {
+            .catch((er) => {
                 console.log(er);
                 return null;
             });
     }
     public uploadNewImage(image) {
         return fetch('api/Data/UploadNewImage')
-            .then(response => response.json() as Promise<IImage>)
-            .then(data => {
-                return data;
-            })
-            .catch(er => {
+            .then((response) => response.json() as Promise<IImage>)
+            // .then(data => {
+            //     return data;
+            // })
+            .catch((er) => {
                 console.log(er);
                 return null;
             });
