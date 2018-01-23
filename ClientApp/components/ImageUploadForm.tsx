@@ -158,7 +158,7 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
             </FormField>
           )}
           {this.state.isGalleryImage &&
-            this.state.selectedGallery == "newGallery" && (
+            this.state.selectedGallery === "newGallery" && (
               <FormField>
                 <Label htmlFor="new-gallery-name">
                   Enter a name for the new gallery.
