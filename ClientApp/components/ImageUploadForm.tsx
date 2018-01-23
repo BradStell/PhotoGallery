@@ -149,7 +149,7 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
               <Label htmlFor="gallery-select">
                 Select a gallery for the image.
               </Label>
-              <select onChange={this.handleGallerySelectChange} name="Gallery">
+              <select onChange={this.handleGallerySelectChange} name="gallery-select">
                 <option value="gallery1">Gallery 1</option>
                 <option value="gallery2">Gallery 2</option>
                 <option value="gallery3">Gallery 3</option>
