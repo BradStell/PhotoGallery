@@ -12,7 +12,7 @@ interface ILocalState {
   isGalleryImage: boolean;
   selectedGallery: string;
   newGalleryName: string;
-  newImage: string;
+  pathName: string;
 }
 
 interface ILocalProps {}
@@ -58,7 +58,7 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
       isGalleryImage: false,
       selectedGallery: "",
       newGalleryName: "",
-      newImage: ""
+      pathName: ""
     };
   }
 
@@ -101,7 +101,7 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
 
   private handleNewImageSelection(e) {
     this.setState({
-      newImage: e.target.value
+      pathName: e.target.value
     });
   }
 
@@ -180,13 +180,13 @@ export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
               id="new-image"
               accept="image/*"
               onChange={this.handleNewImageSelection}
-              value={this.state.newImage}
+              value={this.state.pathName}
             />
           </FormField>
           <FormField>
             <UploadImageButton
               onClick={this.handleImageUpload}
-              disabled={!this.state.title || !this.state.newImage}
+              disabled={!this.state.title || !this.state.pathName}
             >
               Upload Image
             </UploadImageButton>

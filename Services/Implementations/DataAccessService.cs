@@ -34,7 +34,7 @@ namespace PhotoGallery.Services.Implementations
 
     }
 
-    public void UploadNewImage(dynamic image)
+    public void UploadNewImage(Image image)
     {
       _db.Images.Add(image);
       _db.SaveChanges();

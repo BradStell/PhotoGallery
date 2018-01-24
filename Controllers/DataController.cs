@@ -37,16 +37,28 @@ namespace PhotoGallery.Controllers
     }
 
     [HttpGet("[action]")]
-    public void UploadNewImage(dynamic image)
-    {
+    public IActionResult UploadNewImage(dynamic image)
+    { 
+      Image newImage = new Image {
+        Id = Guid.NewGuid(),
+        PathName = image.pathName,
+        Title = image.title,
+        IsCarouselImage = image.IsCarouselImage,
+        Gallery_Id = image.Gallery_Id ? image.Gallery_Id : "",
+        Gallery = image.newGalleryName
+      };
+
+      
       try
       {
         _dataAccessService.UploadNewImage(image);
+        return Ok();
       }
       catch (Exception ex)
       {
         // TODO figure out logging
         _logger.LogError("Error", ex);
+        return BadRequest();
       }
     }
   }
