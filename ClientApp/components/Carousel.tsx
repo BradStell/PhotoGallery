@@ -127,7 +127,7 @@ export default class Carousel extends React.Component<ILocalProps, ILocalState> 
 
         this.state = {
             currentImage: 0
-        }
+        };
     }
 
     private goToPreviousImage() {
@@ -150,7 +150,7 @@ export default class Carousel extends React.Component<ILocalProps, ILocalState> 
                 <ImageWrapper key={index} style={{ opacity: 0, visibility: 'hidden', zIndex: -1, backgroundImage: `url('GalleryImages/${image.pathName}')` }}/>
         );
     }
-    
+
     public render() {
 
         if (!this.props.imageList || this.props.imageList.length === 0) {

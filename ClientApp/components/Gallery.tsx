@@ -1,19 +1,38 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
+import styled from 'styled-components';
 
-interface IGalleryState {
+interface ILocalState {
 }
 
-export class Gallery extends React.Component<RouteComponentProps<{}>, IGalleryState> {
+interface ILocalProps {
+    title: string;
+    imageLocation: string;
+}
+
+const Wrapper: any = styled.div`
+    cursor: pointer;
+`;
+
+const ImageWrapper: any = styled.div`
+    background-position: center top;
+    background-position-x: 50%;
+    background-position-y: 0%;
+    background-size: cover;
+    height: 200px;
+    width: 300px;
+`;
+
+export default class Gallery extends React.Component<ILocalProps, ILocalState> {
     constructor() {
         super();
     }
 
     public render() {
         return (
-            <div>
-                <h1>Gallery</h1>
-            </div>
+            <Wrapper>
+                <h1>{this.props.title}</h1>
+                <ImageWrapper style={{ backgroundImage: `url('GalleryImages/${this.props.imageLocation}')` }} />
+            </Wrapper>
         );
     }
 }
