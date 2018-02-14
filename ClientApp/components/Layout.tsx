@@ -1,12 +1,12 @@
 import '../css/site.css';
 import * as React from 'react';
-import { NavMenu } from './NavMenu';
+import NavMenu from './NavMenu';
 
-export interface LayoutProps {
+export interface ILayoutProps {
     children?: React.ReactNode;
 }
 
-export class Layout extends React.Component<LayoutProps, {}> {
+export default class Layout extends React.Component<ILayoutProps, {}> {
     public render() {
         return (
             <div>

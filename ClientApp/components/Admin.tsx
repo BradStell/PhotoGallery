@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export class Admin extends Component<RouteComponentProps<{}>, ILocalState> {
+export default class Admin extends Component<RouteComponentProps<{}>, ILocalState> {
   constructor() {
     super();
     autoBind(this);

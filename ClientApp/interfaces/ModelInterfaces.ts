@@ -11,6 +11,7 @@ export interface IImage {
 export interface IGallery {
     id: string;
     title: string;
+    coverImage_Id: string;
     coverImage: IImage;
     createDateTime: any;
 }

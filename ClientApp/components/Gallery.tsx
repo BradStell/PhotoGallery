@@ -1,11 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { Link, NavLink } from 'react-router-dom';
 
 interface ILocalState {
 }
 
 interface ILocalProps {
     title: string;
+    imageId: string;
     imageLocation: string;
 }
 
@@ -40,7 +42,9 @@ export default class Gallery extends React.Component<ILocalProps, ILocalState> {
                 <div style={{ textAlign: 'center' }}>
                     <GalleryTitle>{this.props.title}</GalleryTitle>
                 </div>
-                <ImageWrapper style={{ backgroundImage: `url('GalleryImages/${this.props.imageLocation}')` }} />
+                <NavLink to={`/gallery/${this.props.imageId}`} exact>
+                    <ImageWrapper style={{ backgroundImage: `url('GalleryImages/${this.props.imageLocation}')` }} />
+                </NavLink>
             </Wrapper>
         );
     }

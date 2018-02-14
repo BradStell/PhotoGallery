@@ -6,7 +6,7 @@ const Wrapper: any = styled.div`
     text-align: center;
 `;
 
-export class About extends React.Component<RouteComponentProps<{}>, {}> {
+export default class About extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return (
             <Wrapper>

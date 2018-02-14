@@ -11,7 +11,7 @@ const Wrapper: any = styled.div`
     position: relative;
 `;
 
-export class Home extends React.Component<RouteComponentProps<{}>, {}> {
+export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
 
     constructor() {
         super();

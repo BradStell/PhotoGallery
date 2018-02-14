@@ -25,7 +25,7 @@ const Wrapper: any = styled.div`
     height: 100vh;
 `;
 
-export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleriesState> {
+export default class Galleries extends React.Component<RouteComponentProps<{}>, IGalleriesState> {
     constructor() {
         super();
         autobind(this);
@@ -56,7 +56,7 @@ export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleri
                 </div>
                 <ImageContainer>
                     {this.state.galleries.map((gallery: IGallery) =>
-                        <Gallery key={gallery.id} title={gallery.title} imageLocation={gallery.coverImage.pathName} />
+                        <Gallery key={gallery.id} title={gallery.title} imageId={gallery.id} imageLocation={gallery.coverImage.pathName} />
                     )}
                 </ImageContainer>
             </Wrapper>

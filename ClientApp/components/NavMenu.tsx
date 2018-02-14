@@ -27,7 +27,7 @@ const MenuContainerUl: any = styled.ul`
     color: #739393;
 `;
 
-export class NavMenu extends React.Component<{}, {}> {
+export default class NavMenu extends React.Component<{}, {}> {
     public render() {
         return (
             <Wrapper id="main-header">
