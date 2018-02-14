@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import autobind from 'react-autobind';
-import { DataService, IDataService } from '../services/dataService';
+import DataService from '../services/dataService';
 import { IGallery } from '../interfaces/ModelInterfaces';
 import Gallery from './Gallery';
 import styled from 'styled-components';
-
-const dataService: IDataService = new DataService();
 
 interface IGalleriesState {
     galleries: IGallery[];
@@ -15,11 +13,16 @@ interface IGalleriesState {
 const ImageContainer: any = styled.div`
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
 `;
 
 const PageTitle: any = styled.h1`
     font-family: 'Open Sans';
+`;
+
+const Wrapper: any = styled.div`
+    background-color: #F5E5F5;
+    height: 100vh;
 `;
 
 export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleriesState> {
@@ -31,7 +34,11 @@ export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleri
             galleries: null
         };
 
-        dataService.getGalleries().then( (data) => {
+        this.getGalleries();
+    }
+
+    private getGalleries() {
+        DataService.getGalleries().then( (data) => {
             this.setState( (prevState) => ({ galleries: data }));
         });
     }
@@ -43,7 +50,7 @@ export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleri
         }
 
         return (
-            <div>
+            <Wrapper>
                 <div style={{ textAlign: 'center' }}>
                     <PageTitle>Galleries</PageTitle>
                 </div>
@@ -52,7 +59,7 @@ export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleri
                         <Gallery key={gallery.id} title={gallery.title} imageLocation={gallery.coverImage.pathName} />
                     )}
                 </ImageContainer>
-            </div>
+            </Wrapper>
         );
     }
 }

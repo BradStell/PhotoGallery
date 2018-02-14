@@ -11,6 +11,8 @@ interface ILocalProps {
 
 const Wrapper: any = styled.div`
     cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
 `;
 
 const ImageWrapper: any = styled.div`
@@ -20,7 +22,7 @@ const ImageWrapper: any = styled.div`
     background-size: cover;
     height: 400px;
     width: 600px;
-    border: 3px solid gray;
+    border: 3px solid #929292;
 `;
 
 const GalleryTitle: any = styled.h4`

@@ -6,7 +6,7 @@ export interface IDataService {
     //uploadNewImage(image);
 }
 
-export class DataService implements IDataService {
+class DataService implements IDataService {
 
     public getCarouselImages() {
         return fetch('api/Image/GetCarouselImages')
@@ -44,3 +44,5 @@ export class DataService implements IDataService {
     //         });
     // }
 }
+
+export default new DataService();

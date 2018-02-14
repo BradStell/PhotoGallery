@@ -2,6 +2,8 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import autoBind from 'react-autobind';
 import styled from 'styled-components';
+import DataService from '../services/dataService';
+import { IImage} from '../interfaces/ModelInterfaces';
 
 interface Image {
     id: string;
@@ -14,9 +16,6 @@ interface Image {
 
 interface ILocalState {
     currentImage: number;
-}
-
-interface ILocalProps {
     imageList: Image[];
 }
 
@@ -119,31 +118,40 @@ const Arrow: any = styled.div`
     }
 `;
 
-export default class Carousel extends React.Component<ILocalProps, ILocalState> {
+export default class Carousel extends React.Component<{}, ILocalState> {
 
-    constructor(props: ILocalProps) {
-        super(props);
+    constructor() {
+        super();
         autoBind(this);
 
         this.state = {
-            currentImage: 0
+            currentImage: 0,
+            imageList: null
         };
+
+        this.getCarouselImages();
+    }
+
+    private getCarouselImages() {
+        DataService.getCarouselImages().then( (data) => {
+            this.setState( (prevState) => ({ imageList: data }));
+        });
     }
 
     private goToPreviousImage() {
         this.setState((prevState: ILocalState) => ({
-            currentImage: this.state.currentImage === 0 ? this.props.imageList.length - 1 : this.state.currentImage - 1
+            currentImage: this.state.currentImage === 0 ? this.state.imageList.length - 1 : this.state.currentImage - 1
         }));
     }
 
     private goToNextImage() {
         this.setState((prevState: ILocalState) => ({
-            currentImage: this.state.currentImage === this.props.imageList.length - 1 ? 0 : this.state.currentImage + 1
+            currentImage: this.state.currentImage === this.state.imageList.length - 1 ? 0 : this.state.currentImage + 1
         }));
     }
 
     private buildImageCarousel(): JSX.Element[] {
-        return this.props.imageList.map((image: Image, index: number): JSX.Element =>
+        return this.state.imageList.map((image: Image, index: number): JSX.Element =>
             this.state.currentImage === index ?
                 <ImageWrapper key={index} style={{ opacity: 1, visibility: 'visible', zIndex: 2, backgroundImage: `url('GalleryImages/${image.pathName}')` }}/>
                 :
@@ -153,7 +161,7 @@ export default class Carousel extends React.Component<ILocalProps, ILocalState> 
 
     public render() {
 
-        if (!this.props.imageList || this.props.imageList.length === 0) {
+        if (!this.state.imageList || this.state.imageList.length === 0) {
             return <div />;
         }
 
