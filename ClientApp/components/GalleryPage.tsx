@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
 import autobind from 'react-autobind';
 import DataService from '../services/dataService';
-import { IImage } from '../interfaces/ModelInterfaces';
+import { IGallery, IImage } from '../interfaces/ModelInterfaces';
 
 interface ILocalState {
-    galleryImages: IImage[];
+    gallery: IGallery;
 }
 
 interface ILocalProps {
@@ -36,21 +36,21 @@ export default class GalleryPage extends React.Component<RouteComponentProps<{}>
         autobind(this);
 
         this.state = {
-            galleryImages: null
+            gallery: null
         };
 
         this.getGalleryImages();
     }
 
     private getGalleryImages() {
-        DataService.getGalleryImages(this.props.match.params['id']).then( (data) => {
-            this.setState( (prevState) => ({ galleryImages: data }));
+        DataService.getGalleryById(this.props.match.params['id']).then( (data) => {
+            this.setState( (prevState) => ({ gallery: data }));
         });
     }
 
     public render() {
 
-        if (!this.state.galleryImages || this.state.galleryImages.length === 0) {
+        if (!this.state.gallery) {
             return <div />;
         }
 
@@ -59,7 +59,7 @@ export default class GalleryPage extends React.Component<RouteComponentProps<{}>
                 <h1></h1>
                 <ImageWrapper>
                     {
-                        this.state.galleryImages.map((image: IImage) =>
+                        this.state.gallery.images.map((image: IImage) =>
                             <GalleryImage style={{ backgroundImage: `url('GalleryImages/${image.pathName}')` }} />
                     )}
                 </ImageWrapper>

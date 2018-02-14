@@ -36,11 +36,11 @@ namespace PhotoGallery.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetGalleryImages([FromQuery] Guid galleryId)
+        public IActionResult GetGalleryById([FromQuery] Guid galleryId)
         {
             try
             {
-                return Ok(_galleryService.GetGalleryImages(galleryId));
+                return Ok(_galleryService.GetGalleryById(galleryId));
             }
             catch (Exception ex)
             {

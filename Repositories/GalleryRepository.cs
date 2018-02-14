@@ -34,11 +34,11 @@ namespace PhotoGallery.Repositories
             }
         }
 
-        public List<Image> GetGalleryImages()
+        public Gallery GetGalleryById(Guid galleryId)
         {
             try
             {
-                return _db.Images.Where(x => x.Gallery_Id == new Guid("")).ToList();
+                return _db.Galleries.Where(x => x.Id == galleryId).FirstOrDefault();
             }
             catch (Exception ex)
             {

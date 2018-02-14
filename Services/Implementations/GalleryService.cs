@@ -36,11 +36,16 @@ namespace PhotoGallery.Services.Implementations
             }
         }
 
-        public List<Image> GetGalleryImages(Guid galleryId)
+        public Gallery GetGalleryById(Guid galleryId)
         {
             try
             {
-                return _imageService.GetImagesInGallery(galleryId);
+                var images = _imageService.GetImagesInGallery(galleryId);
+                var gallery = _galleryRepository.GetGalleryById(galleryId);
+
+                gallery.Images = images;
+
+                return gallery;
             }
             catch (Exception ex)
             {
