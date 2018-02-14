@@ -6,6 +6,7 @@ using PhotoGallery.Models;
 using PhotoGallery.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using PhotoGallery.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace PhotoGallery.Repositories
 {
@@ -24,7 +25,7 @@ namespace PhotoGallery.Repositories
         {
             try
             {
-                return _db.Galleries.ToList();
+                return _db.Galleries.Include(x => x.CoverImage).ToList();
             }
             catch (Exception ex)
             {
