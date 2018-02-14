@@ -18,8 +18,13 @@ const ImageWrapper: any = styled.div`
     background-position-x: 50%;
     background-position-y: 0%;
     background-size: cover;
-    height: 200px;
-    width: 300px;
+    height: 400px;
+    width: 600px;
+    border: 3px solid gray;
+`;
+
+const GalleryTitle: any = styled.h4`
+    font-family: 'Open Sans';
 `;
 
 export default class Gallery extends React.Component<ILocalProps, ILocalState> {
@@ -30,7 +35,9 @@ export default class Gallery extends React.Component<ILocalProps, ILocalState> {
     public render() {
         return (
             <Wrapper>
-                <h1>{this.props.title}</h1>
+                <div style={{ textAlign: 'center' }}>
+                    <GalleryTitle>{this.props.title}</GalleryTitle>
+                </div>
                 <ImageWrapper style={{ backgroundImage: `url('GalleryImages/${this.props.imageLocation}')` }} />
             </Wrapper>
         );

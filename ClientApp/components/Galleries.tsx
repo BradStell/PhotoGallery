@@ -18,6 +18,10 @@ const ImageContainer: any = styled.div`
     justify-content: space-around;
 `;
 
+const PageTitle: any = styled.h1`
+    font-family: 'Open Sans';
+`;
+
 export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleriesState> {
     constructor() {
         super();
@@ -41,11 +45,11 @@ export class Galleries extends React.Component<RouteComponentProps<{}>, IGalleri
         return (
             <div>
                 <div style={{ textAlign: 'center' }}>
-                    <h1>Galleries</h1>
+                    <PageTitle>Galleries</PageTitle>
                 </div>
                 <ImageContainer>
                     {this.state.galleries.map((gallery: IGallery) =>
-                        <Gallery title={gallery.title} imageLocation={gallery.coverImage.pathName} />
+                        <Gallery key={gallery.id} title={gallery.title} imageLocation={gallery.coverImage.pathName} />
                     )}
                 </ImageContainer>
             </div>
