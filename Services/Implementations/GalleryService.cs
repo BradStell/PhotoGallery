@@ -13,10 +13,12 @@ namespace PhotoGallery.Services.Implementations
     {
         private readonly IGalleryRepository _galleryRepository;
         private readonly ILogger _logger;
+        private readonly IImageService _imageService;
 
-        public GalleryService(IGalleryRepository galleryRepository, ILogger<ImageService> logger)
+        public GalleryService(IGalleryRepository galleryRepository, IImageService imageService, ILogger<ImageService> logger)
         {
             _galleryRepository = galleryRepository;
+            _imageService = imageService;
             _logger = logger;
         }
 
@@ -25,6 +27,20 @@ namespace PhotoGallery.Services.Implementations
             try
             {
                 return _galleryRepository.GetGalleries();
+            }
+            catch (Exception ex)
+            {
+                // TODO figure out logging
+                _logger.LogError("Error", ex);
+                return null;
+            }
+        }
+
+        public List<Image> GetGalleryImages(Guid galleryId)
+        {
+            try
+            {
+                return _imageService.GetImagesInGallery(galleryId);
             }
             catch (Exception ex)
             {

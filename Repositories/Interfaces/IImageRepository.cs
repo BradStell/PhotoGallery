@@ -11,5 +11,6 @@ namespace PhotoGallery.Repositories.Interfaces
     public interface IImageRepository
     {
         List<Image> GetCarouselImages();
+        List<Image> GetImagesInGallery(Guid galleryId);
     }
 }

@@ -32,7 +32,19 @@ namespace PhotoGallery.Repositories
                 _logger.LogError("Error", ex);
                 return null;
             }
+        }
 
+        public List<Image> GetGalleryImages()
+        {
+            try
+            {
+                return _db.Images.Where(x => x.Gallery_Id == new Guid("")).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+                return null;
+            }
         }
     }
 }

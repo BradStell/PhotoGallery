@@ -3,6 +3,7 @@ import { IImage, IGallery } from '../interfaces/ModelInterfaces';
 export interface IDataService {
     getCarouselImages();
     getGalleries();
+    getGalleryImages();
     //uploadNewImage(image);
 }
 
@@ -23,6 +24,18 @@ class DataService implements IDataService {
     public getGalleries() {
         return fetch('api/Gallery/GetGalleries')
             .then( (response) => response.json() as Promise<IGallery>)
+            .then((data) => {
+                return data;
+            })
+            .catch((er) => {
+                console.log(er);
+                return null;
+            });
+    }
+
+    public getGalleryImages() {
+        return fetch('api/Gallery/GetGalleryImages')
+            .then( (response) => response.json() as Promise<IImage>)
             .then((data) => {
                 return data;
             })

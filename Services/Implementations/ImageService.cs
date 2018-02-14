@@ -35,6 +35,20 @@ namespace PhotoGallery.Services.Implementations
 
         }
 
+        public List<Image> GetImagesInGallery(Guid galleryId)
+        {
+            try
+            {
+                return _imageRepository.GetImagesInGallery(galleryId);
+            }
+            catch (Exception ex)
+            {
+                // TODO figure out logging
+                _logger.LogError("Error", ex);
+                return null;
+            }
+        }
+
         public void UploadNewImage(Image image)
         {
             // _db.Images.Add(image);

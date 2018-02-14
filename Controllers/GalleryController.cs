@@ -34,5 +34,19 @@ namespace PhotoGallery.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet("[action]")]
+        public IActionResult GetGalleryImages([FromQuery] Guid galleryId)
+        {
+            try
+            {
+                return Ok(_galleryService.GetGalleryImages(galleryId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+                return BadRequest();
+            }
+        }
     }
 }

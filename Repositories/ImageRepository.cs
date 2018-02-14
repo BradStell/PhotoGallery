@@ -31,7 +31,19 @@ namespace PhotoGallery.Repositories
                 _logger.LogError("Error", ex);
                 return null;
             }
+        }
 
+        public List<Image> GetImagesInGallery(Guid galleryId)
+        {
+            try
+            {
+                return _db.Images.Where(image => image.Gallery_Id == galleryId).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+                return null;
+            }
         }
     }
 }

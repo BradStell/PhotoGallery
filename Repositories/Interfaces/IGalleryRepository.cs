@@ -11,5 +11,6 @@ namespace PhotoGallery.Repositories.Interfaces
     public interface IGalleryRepository
     {
         List<Gallery> GetGalleries();
+        List<Image> GetGalleryImages();
     }
 }
