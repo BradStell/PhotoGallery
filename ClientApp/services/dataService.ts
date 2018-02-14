@@ -1,13 +1,15 @@
-import { IImage} from '../interfaces/ModelInterfaces';
+import { IImage, IGallery } from '../interfaces/ModelInterfaces';
 
 export interface IDataService {
     getCarouselImages();
-    uploadNewImage(image);
+    getGalleries();
+    //uploadNewImage(image);
 }
 
 export class DataService implements IDataService {
+
     public getCarouselImages() {
-        return fetch('api/Data/GetCarouselImages')
+        return fetch('api/Image/GetCarouselImages')
             .then( (response) => response.json() as Promise<IImage>)
             .then((data) => {
                 return data;
@@ -17,15 +19,28 @@ export class DataService implements IDataService {
                 return null;
             });
     }
-    public uploadNewImage(image) {
-        return fetch('api/Data/UploadNewImage')
-            .then((response) => response.json() as Promise<IImage>)
-            // .then(data => {
-            //     return data;
-            // })
+
+    public getGalleries() {
+        return fetch('api/Gallery/GetGalleries')
+            .then( (response) => response.json() as Promise<IGallery>)
+            .then((data) => {
+                return data;
+            })
             .catch((er) => {
                 console.log(er);
                 return null;
             });
     }
+
+    // public uploadNewImage(image) {
+    //     return fetch('api/Data/UploadNewImage')
+    //         .then((response) => response.json() as Promise<IImage>)
+    //         // .then(data => {
+    //         //     return data;
+    //         // })
+    //         .catch((er) => {
+    //             console.log(er);
+    //             return null;
+    //         });
+    // }
 }

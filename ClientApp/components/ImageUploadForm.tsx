@@ -1,198 +1,198 @@
-import React, { Component } from "react";
-import autoBind from "react-autobind";
-import { RouteComponentProps } from "react-router";
-import styled from "styled-components";
-import { DataService, IDataService } from "../services/dataService";
+// import React, { Component } from "react";
+// import autoBind from "react-autobind";
+// import { RouteComponentProps } from "react-router";
+// import styled from "styled-components";
+// import { DataService, IDataService } from "../services/dataService";
 
-const dataService: IDataService = new DataService();
+// const dataService: IDataService = new DataService();
 
-interface ILocalState {
-  title: string;
-  isCarouselImage: boolean;
-  isGalleryImage: boolean;
-  selectedGallery: string;
-  newGalleryName: string;
-  pathName: string;
-}
+// interface ILocalState {
+//   title: string;
+//   isCarouselImage: boolean;
+//   isGalleryImage: boolean;
+//   selectedGallery: string;
+//   newGalleryName: string;
+//   pathName: string;
+// }
 
-interface ILocalProps {}
+// interface ILocalProps {}
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+// const Wrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+// `;
 
-const FormTitle = styled.h2`
-  text-align: center;
-`;
+// const FormTitle = styled.h2`
+//   text-align: center;
+// `;
 
-const Form = styled.form`
-  margin-top: 2rem;
-`;
+// const Form = styled.form`
+//   margin-top: 2rem;
+// `;
 
-const FormField = styled.div`
-  display: flex;
-  margin-bottom: 1rem;
-`;
+// const FormField = styled.div`
+//   display: flex;
+//   margin-bottom: 1rem;
+// `;
 
-const Label = styled.label`
-  margin-right: 1rem;
-`;
+// const Label = styled.label`
+//   margin-right: 1rem;
+// `;
 
-const TextInput = styled.input``;
+// const TextInput = styled.input``;
 
-const CheckboxInput = styled.input``;
+// const CheckboxInput = styled.input``;
 
-const UploadImageButton = styled.button`
-  margin: 0 auto;
-`;
+// const UploadImageButton = styled.button`
+//   margin: 0 auto;
+// `;
 
-export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
-  constructor() {
-    super();
-    autoBind(this);
+// export class ImageUploadFrom extends Component<ILocalProps, ILocalState> {
+//   constructor() {
+//     super();
+//     autoBind(this);
 
-    this.state = {
-      title: "",
-      isCarouselImage: false,
-      isGalleryImage: false,
-      selectedGallery: "",
-      newGalleryName: "",
-      pathName: ""
-    };
-  }
+//     this.state = {
+//       title: "",
+//       isCarouselImage: false,
+//       isGalleryImage: false,
+//       selectedGallery: "",
+//       newGalleryName: "",
+//       pathName: ""
+//     };
+//   }
 
-  private handleImageTitleChange(e) {
-    e.preventDefault();
-    this.setState({
-      title: e.target.value
-    });
-  }
+//   private handleImageTitleChange(e) {
+//     e.preventDefault();
+//     this.setState({
+//       title: e.target.value
+//     });
+//   }
 
-  private handleCarouselImageCheckbox() {
-    this.setState({
-      isCarouselImage: !this.state.isCarouselImage
-    });
-  }
+//   private handleCarouselImageCheckbox() {
+//     this.setState({
+//       isCarouselImage: !this.state.isCarouselImage
+//     });
+//   }
 
-  private handleGalleryImageCheckbox() {
-    this.setState({
-      isGalleryImage: !this.state.isGalleryImage
-    });
-  }
+//   private handleGalleryImageCheckbox() {
+//     this.setState({
+//       isGalleryImage: !this.state.isGalleryImage
+//     });
+//   }
 
-  private handleGallerySelectChange(e) {
-    this.setState({
-      selectedGallery: e.target.value
-    });
-  }
+//   private handleGallerySelectChange(e) {
+//     this.setState({
+//       selectedGallery: e.target.value
+//     });
+//   }
 
-  private handleImageUpload(e) {
-    e.preventDefault();
-    console.log(this.state);
-    dataService.uploadNewImage(this.state);
-  }
+//   private handleImageUpload(e) {
+//     e.preventDefault();
+//     console.log(this.state);
+//     dataService.uploadNewImage(this.state);
+//   }
 
-  private handleNewGalleryNameChange(e) {
-    this.setState({
-      newGalleryName: e.target.value
-    });
-  }
+//   private handleNewGalleryNameChange(e) {
+//     this.setState({
+//       newGalleryName: e.target.value
+//     });
+//   }
 
-  private handleNewImageSelection(e) {
-    this.setState({
-      pathName: e.target.value
-    });
-  }
+//   private handleNewImageSelection(e) {
+//     this.setState({
+//       pathName: e.target.value
+//     });
+//   }
 
-  public render() {
-    return (
-      <Wrapper>
-        <FormTitle>Image Upload Form</FormTitle>
-        <Form id="image-upload-form">
-          <FormField>
-            <Label htmlFor="image-title">Image Title:</Label>
-            <TextInput
-              type="text"
-              name="image-title"
-              id="image-title"
-              onChange={this.handleImageTitleChange}
-              value={this.state.title}
-            />
-          </FormField>
-          <FormField>
-            <Label htmlFor="carousel-image-checkbox">
-              Is this a carousel Image?
-            </Label>
-            <CheckboxInput
-              type="checkbox"
-              name="carousel-image-checkbox"
-              id="carousel-image-checkbox"
-              onChange={this.handleCarouselImageCheckbox}
-              checked={this.state.isCarouselImage}
-            />
-          </FormField>
-          <FormField>
-            <Label htmlFor="gallery-image-checkbox">
-              Is this a gallery Image?
-            </Label>
-            <CheckboxInput
-              type="checkbox"
-              name="gallery-image-checkbox"
-              id="gallery-image-checkbox"
-              onChange={this.handleGalleryImageCheckbox}
-              checked={this.state.isGalleryImage}
-            />
-          </FormField>
-          {this.state.isGalleryImage && (
-            <FormField>
-              <Label htmlFor="gallery-select">
-                Select a gallery for the image.
-              </Label>
-              <select onChange={this.handleGallerySelectChange} name="gallery-select">
-                <option value="gallery1">Gallery 1</option>
-                <option value="gallery2">Gallery 2</option>
-                <option value="gallery3">Gallery 3</option>
-                <option value="newGallery">New Gallery</option>
-              </select>
-            </FormField>
-          )}
-          {this.state.isGalleryImage &&
-            this.state.selectedGallery === "newGallery" && (
-              <FormField>
-                <Label htmlFor="new-gallery-name">
-                  Enter a name for the new gallery.
-                </Label>
-                <TextInput
-                  type="text"
-                  name="new-gallery-name"
-                  id="new-gallery-name"
-                  onChange={this.handleNewGalleryNameChange}
-                  value={this.state.newGalleryName}
-                />
-              </FormField>
-            )}
-          <FormField>
-            <Label htmlFor="new-image">Select your image</Label>
-            <input
-              type="file"
-              name="new-image"
-              id="new-image"
-              accept="image/*"
-              onChange={this.handleNewImageSelection}
-              value={this.state.pathName}
-            />
-          </FormField>
-          <FormField>
-            <UploadImageButton
-              onClick={this.handleImageUpload}
-              disabled={!this.state.title || !this.state.pathName}
-            >
-              Upload Image
-            </UploadImageButton>
-          </FormField>
-        </Form>
-      </Wrapper>
-    );
-  }
-}
+//   public render() {
+//     return (
+//       <Wrapper>
+//         <FormTitle>Image Upload Form</FormTitle>
+//         <Form id="image-upload-form">
+//           <FormField>
+//             <Label htmlFor="image-title">Image Title:</Label>
+//             <TextInput
+//               type="text"
+//               name="image-title"
+//               id="image-title"
+//               onChange={this.handleImageTitleChange}
+//               value={this.state.title}
+//             />
+//           </FormField>
+//           <FormField>
+//             <Label htmlFor="carousel-image-checkbox">
+//               Is this a carousel Image?
+//             </Label>
+//             <CheckboxInput
+//               type="checkbox"
+//               name="carousel-image-checkbox"
+//               id="carousel-image-checkbox"
+//               onChange={this.handleCarouselImageCheckbox}
+//               checked={this.state.isCarouselImage}
+//             />
+//           </FormField>
+//           <FormField>
+//             <Label htmlFor="gallery-image-checkbox">
+//               Is this a gallery Image?
+//             </Label>
+//             <CheckboxInput
+//               type="checkbox"
+//               name="gallery-image-checkbox"
+//               id="gallery-image-checkbox"
+//               onChange={this.handleGalleryImageCheckbox}
+//               checked={this.state.isGalleryImage}
+//             />
+//           </FormField>
+//           {this.state.isGalleryImage && (
+//             <FormField>
+//               <Label htmlFor="gallery-select">
+//                 Select a gallery for the image.
+//               </Label>
+//               <select onChange={this.handleGallerySelectChange} name="gallery-select">
+//                 <option value="gallery1">Gallery 1</option>
+//                 <option value="gallery2">Gallery 2</option>
+//                 <option value="gallery3">Gallery 3</option>
+//                 <option value="newGallery">New Gallery</option>
+//               </select>
+//             </FormField>
+//           )}
+//           {this.state.isGalleryImage &&
+//             this.state.selectedGallery === "newGallery" && (
+//               <FormField>
+//                 <Label htmlFor="new-gallery-name">
+//                   Enter a name for the new gallery.
+//                 </Label>
+//                 <TextInput
+//                   type="text"
+//                   name="new-gallery-name"
+//                   id="new-gallery-name"
+//                   onChange={this.handleNewGalleryNameChange}
+//                   value={this.state.newGalleryName}
+//                 />
+//               </FormField>
+//             )}
+//           <FormField>
+//             <Label htmlFor="new-image">Select your image</Label>
+//             <input
+//               type="file"
+//               name="new-image"
+//               id="new-image"
+//               accept="image/*"
+//               onChange={this.handleNewImageSelection}
+//               value={this.state.pathName}
+//             />
+//           </FormField>
+//           <FormField>
+//             <UploadImageButton
+//               onClick={this.handleImageUpload}
+//               disabled={!this.state.title || !this.state.pathName}
+//             >
+//               Upload Image
+//             </UploadImageButton>
+//           </FormField>
+//         </Form>
+//       </Wrapper>
+//     );
+//   }
+// }

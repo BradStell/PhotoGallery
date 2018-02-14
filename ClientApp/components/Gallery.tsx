@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-interface GalleryState {
+interface IGalleryState {
 }
 
-export class Gallery extends React.Component<RouteComponentProps<{}>, GalleryState> {
+export class Gallery extends React.Component<RouteComponentProps<{}>, IGalleryState> {
     constructor() {
         super();
     }

@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import autoBind from 'react-autobind';
 import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
-import { ImageUploadFrom }from './ImageUploadForm';
+//import { ImageUploadFrom }from './ImageUploadForm';
 
 interface ILocalState { }
 
@@ -23,7 +23,7 @@ export class Admin extends Component<RouteComponentProps<{}>, ILocalState> {
     return (
       <Wrapper>
       <h1>Admin Page</h1>
-      <ImageUploadFrom />
+      {/* <ImageUploadFrom /> */}
       </Wrapper>
     );
   }

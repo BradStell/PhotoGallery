@@ -14,6 +14,8 @@ using PhotoGallery.Models;
 using Microsoft.EntityFrameworkCore;
 using PhotoGallery.Services.Implementations;
 using PhotoGallery.Services.Interfaces;
+using PhotoGallery.Repositories.Interfaces;
+using PhotoGallery.Repositories;
 
 namespace PhotoGallery
 {
@@ -33,7 +35,10 @@ namespace PhotoGallery
 
             // Dependency Injection Setup
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IDataAccessService, DataAccessService>();
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IGalleryService, GalleryService>();
+            services.AddTransient<IImageRepository, ImageRepository>();
+            services.AddTransient<IGalleryRepository, GalleryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

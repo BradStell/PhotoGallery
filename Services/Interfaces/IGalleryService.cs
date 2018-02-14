@@ -4,9 +4,8 @@ using PhotoGallery.Models;
 
 namespace PhotoGallery.Services.Interfaces
 {
-  public interface IDataAccessService
+  public interface IGalleryService
   {
-    List<Image> GetCarouselImages();
-    void UploadNewImage(Image image);
+    List<Gallery> GetGalleries();
   }
 }
