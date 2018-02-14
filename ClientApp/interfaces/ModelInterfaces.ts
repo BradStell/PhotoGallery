@@ -14,4 +14,5 @@ export interface IGallery {
     coverImage_Id: string;
     coverImage: IImage;
     createDateTime: any;
+    images: IImage[];
 }

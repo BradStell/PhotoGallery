@@ -11,8 +11,8 @@ using System;
 namespace PhotoGallery.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180113230302_SeedData1")]
-    partial class SeedData1
+    [Migration("20180214210129_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace PhotoGallery.Migrations
 
                     b.Property<Guid?>("Gallery_Id");
 
-                    b.Property<bool?>("IsCarouselImage");
+                    b.Property<bool>("IsCarouselImage");
 
                     b.Property<string>("PathName");
 

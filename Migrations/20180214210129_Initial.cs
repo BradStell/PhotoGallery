@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PhotoGallery.Migrations
 {
-    public partial class SeedData1 : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace PhotoGallery.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Gallery_Id = table.Column<Guid>(nullable: true),
-                    IsCarouselImage = table.Column<bool>(nullable: true),
+                    IsCarouselImage = table.Column<bool>(nullable: false),
                     PathName = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true)
                 },

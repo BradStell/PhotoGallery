@@ -3,7 +3,7 @@ import { IImage, IGallery } from '../interfaces/ModelInterfaces';
 export interface IDataService {
     getCarouselImages();
     getGalleries();
-    getGalleryImages();
+    getGalleryImages(galleryId: string);
     //uploadNewImage(image);
 }
 
@@ -22,7 +22,7 @@ class DataService implements IDataService {
     }
 
     public getGalleries() {
-        return fetch('api/Gallery/GetGalleries')
+        return fetch(`api/Gallery/GetGalleries`)
             .then( (response) => response.json() as Promise<IGallery>)
             .then((data) => {
                 return data;
@@ -33,9 +33,9 @@ class DataService implements IDataService {
             });
     }
 
-    public getGalleryImages() {
-        return fetch('api/Gallery/GetGalleryImages')
-            .then( (response) => response.json() as Promise<IImage>)
+    public getGalleryImages(galleryId: string) {
+        return fetch(`api/Gallery/GetGalleryImages?galleryId=${galleryId}`)
+            .then( (response) => response.json() as Promise<IGallery>)
             .then((data) => {
                 return data;
             })

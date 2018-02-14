@@ -44,7 +44,7 @@ namespace PhotoGallery.Migrations
 
                     b.Property<Guid?>("Gallery_Id");
 
-                    b.Property<bool?>("IsCarouselImage");
+                    b.Property<bool>("IsCarouselImage");
 
                     b.Property<string>("PathName");
 
