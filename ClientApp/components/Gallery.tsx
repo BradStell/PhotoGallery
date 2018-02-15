@@ -33,8 +33,8 @@ const GalleryTitle: any = styled.h4`
 `;
 
 export default class Gallery extends React.Component<ILocalProps, ILocalState> {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     public render() {
