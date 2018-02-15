@@ -29,6 +29,7 @@ const GalleryImage: any = styled.div`
     border: 3px solid #929292;
     margin-left: 5px;
     margin-right: 5px;
+    cursor: pointer;
 `;
 
 const Title: any = styled.h1`
@@ -60,6 +61,10 @@ export default class GalleryPage extends React.Component<RouteComponentProps<{}>
         });
     }
 
+    private showcaseImage(image: IImage) {
+        console.log(image);
+    }
+
     public render() {
 
         if (!this.state.gallery) {
@@ -74,9 +79,14 @@ export default class GalleryPage extends React.Component<RouteComponentProps<{}>
                 <ImageWrapper>
                     {
                         this.state.gallery.images.map((image: IImage) =>
-                            <GalleryImage style={{ backgroundImage: `url('GalleryImages/${image.pathName}')` }} />
+                            <GalleryImage key={image.id} style={{ backgroundImage: `url('GalleryImages/${image.pathName}')` }} onClick={() => this.showcaseImage(image) } />
                     )}
                 </ImageWrapper>
+                <div style={{ width: '100vw', position: 'relative', display: 'inline-block', verticalAlign: 'middle', zIndex: 1000, opacity: 0.5 }}>
+                    <div style={{ opacity: 1, textAlign: 'center', position: 'absolute', top: '100px', left: '300px' }}>
+                        <div style={{ width: '600px', height: '400px', backgroundImage: `url('GalleryImages/lafoten.jpg')` }} />
+                    </div>
+                </div>
             </Wrapper>
         );
     }
