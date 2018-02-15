@@ -18,11 +18,12 @@ const ImageContainer: any = styled.div`
 
 const PageTitle: any = styled.h1`
     font-family: 'Open Sans';
+    color: #AAAAAA;
 `;
 
 const Wrapper: any = styled.div`
-    background-color: #F5E5F5;
     height: 100vh;
+    background-color: #212121;
 `;
 
 export default class Galleries extends React.Component<RouteComponentProps<{}>, IGalleriesState> {

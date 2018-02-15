@@ -27,6 +27,18 @@ const GalleryImage: any = styled.div`
     height: 400px;
     width: 600px;
     border: 3px solid #929292;
+    margin-left: 5px;
+    margin-right: 5px;
+`;
+
+const Title: any = styled.h1`
+    font-family: 'Open Sans';
+    color: #AAAAAA;
+`;
+
+const Wrapper: any = styled.div`
+    height: 100vh;
+    background-color: #212121;
 `;
 
 export default class GalleryPage extends React.Component<RouteComponentProps<{}>, ILocalState> {
@@ -55,15 +67,17 @@ export default class GalleryPage extends React.Component<RouteComponentProps<{}>
         }
 
         return (
-            <div>
-                <h1></h1>
+            <Wrapper>
+                <div style={{ textAlign: 'center' }}>
+                    <Title>{ this.state.gallery.title }</Title>
+                </div>
                 <ImageWrapper>
                     {
                         this.state.gallery.images.map((image: IImage) =>
                             <GalleryImage style={{ backgroundImage: `url('GalleryImages/${image.pathName}')` }} />
                     )}
                 </ImageWrapper>
-            </div>
+            </Wrapper>
         );
     }
 }

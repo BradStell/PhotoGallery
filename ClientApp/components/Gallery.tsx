@@ -29,6 +29,7 @@ const ImageWrapper: any = styled.div`
 
 const GalleryTitle: any = styled.h4`
     font-family: 'Open Sans';
+    color: #AAAAAA;
 `;
 
 export default class Gallery extends React.Component<ILocalProps, ILocalState> {
