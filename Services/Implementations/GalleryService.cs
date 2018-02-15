@@ -45,6 +45,12 @@ namespace PhotoGallery.Services.Implementations
 
                 gallery.Images = images;
 
+                // Stop EF from populating gallery property on image (circular reference)
+                foreach (var image in gallery.Images)
+                {
+                    image.Gallery = null;
+                }
+
                 return gallery;
             }
             catch (Exception ex)

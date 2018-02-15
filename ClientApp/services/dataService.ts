@@ -35,7 +35,7 @@ class DataService implements IDataService {
 
     public getGalleryById(galleryId: string) {
         return fetch(`api/Gallery/GetGalleryById?galleryId=${galleryId}`)
-            .then( (response) => response.json() )
+            .then( (response) => response.json() as Promise<IGallery>)
             .then((data) => {
                 return data;
             })

@@ -40,7 +40,8 @@ namespace PhotoGallery.Controllers
         {
             try
             {
-                return Ok(_galleryService.GetGalleryById(galleryId));
+                var gallery = _galleryService.GetGalleryById(galleryId);
+                return Ok(gallery);
             }
             catch (Exception ex)
             {
