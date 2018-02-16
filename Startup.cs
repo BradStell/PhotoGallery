@@ -39,6 +39,7 @@ namespace PhotoGallery
             services.AddTransient<IGalleryService, GalleryService>();
             services.AddTransient<IImageRepository, ImageRepository>();
             services.AddTransient<IGalleryRepository, GalleryRepository>();
+            services.AddTransient<IFileSystemRepository, FileSystemRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
