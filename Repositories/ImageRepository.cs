@@ -45,5 +45,11 @@ namespace PhotoGallery.Repositories
                 return null;
             }
         }
+
+        public void UploadNewImage(Image image)
+        {
+            _db.Images.Add(image);
+            _db.SaveChanges();
+        }
     }
 }

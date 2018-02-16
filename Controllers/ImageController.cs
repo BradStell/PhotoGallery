@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PhotoGallery.Models;
 using PhotoGallery.Services.Interfaces;
 
@@ -36,36 +39,21 @@ namespace PhotoGallery.Controllers
             }
         }
 
-        [HttpPost("[action]")]
-        public IActionResult UploadImage(IFormFile file, string name)
+        [HttpPost("[action]")]  // TODO pass in as object not string
+        public async Task<IActionResult> UploadImage(IFormFile file, string imageData)
         {
-            return null;
-        }
+            Image image = JsonConvert.DeserializeObject<Image>(imageData);
+            image.PathName = file.FileName;
 
-        [HttpGet("[action]")]
-        public IActionResult UploadNewImage(dynamic image)
-        {
-            // Image newImage = new Image
-            // {
-            //     Id = Guid.NewGuid(),
-            //     PathName = image.pathName,
-            //     Title = image.title,
-            //     IsCarouselImage = image.IsCarouselImage,
-            //     Gallery_Id = image.Gallery_Id ? image.Gallery_Id : "",
-            //     Gallery = image.newGalleryName
-            // };
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Gallery", file.FileName);
 
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
 
-            // try
-            // {
-            //     _dataAccessService.UploadNewImage(image);
-            //     return Ok();
-            // }
-            // catch (Exception ex)
-            // {
-            //     _logger.LogError("Error", ex);
-            //     return BadRequest();
-            // }
+            _imageService.UploadNewImage(image);
+
             return null;
         }
     }

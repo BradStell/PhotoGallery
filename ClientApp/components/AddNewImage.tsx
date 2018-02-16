@@ -4,13 +4,14 @@ import DataService from '../services/dataService';
 import { IGallery, IImage } from '../interfaces/ModelInterfaces';
 import styled from 'styled-components';
 import uuid from 'uuid/v4';
-import { Input, Checkbox, Select } from 'antd';
+import { Input, Checkbox, Select, Button } from 'antd';
 
 const Option = Select.Option;
 
 interface ILocalState {
     newImage: IImage;
     galleries: IGallery[];
+    imageBlob: any;
 }
 
 interface ILocalProps {
@@ -117,7 +118,8 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                 isCarouselImage: false,
                 gallery_Id: null
             },
-            galleries: null
+            galleries: null,
+            imageBlob: null
         };
 
         autobind(this);
@@ -138,21 +140,23 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         const file: any = event.target.files[0];
 
         if (file && file.type.match('image.*')) {
-            const form = new FormData();
-            form.append('file', file);
-            form.append('name', 'brad');
+            // const form = new FormData();
+            // form.append('file', file);
+            // form.append('name', 'brad');
 
-            fetch('/api/Image/UploadImage',{
-                credentials: 'include',
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
-                },
-                body: form
-            });
+            // fetch('/api/Image/UploadImage',{
+            //     credentials: 'include',
+            //     method: 'POST',
+            //     headers: {
+            //         'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+            //     },
+            //     body: form
+            // });
+            this.setState((prevState) => ({...prevState, imageBlob: file}));
         }
     }
 
+    // TODO - refactor out ant components to new react components and consolidate the property changed function to be generic
     private propertyValueChanged(propertyName: string, value: any) {
         this.setState((prevState) => ({
             ...prevState,
@@ -161,10 +165,6 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                 [propertyName]: value
             }
         }));
-    }
-
-    public componentWillUpdate() {
-        return true;
     }
 
     private changeCheckbox(event: any) {
@@ -179,17 +179,38 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
     }
 
     private dropdownChange(value) {
-        console.log(value);
+        this.setState((prevState) => ({
+            ...prevState,
+            newImage: {
+                ...prevState.newImage,
+                gallery_Id: value
+            }
+        }));
+    }
+
+    private uploadNewImage() {
+        const form = new FormData();
+        form.append('file', this.state.imageBlob);
+        form.append('imageData', JSON.stringify(this.state.newImage));
+
+        fetch('/api/Image/UploadImage',{
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+            },
+            body: form
+        });
     }
 
     public render() {
-        const RemoveIconButton: JSX.Element = (
-            <StyledRemoveIconButton
-                content={'x'}
-                size='small'
-                onClick={() => null}
-            />
-        );
+        // const RemoveIconButton: JSX.Element = (
+        //     <StyledRemoveIconButton
+        //         content={'x'}
+        //         size='small'
+        //         onClick={() => null}
+        //     />
+        // );
 
         return (
             <Wrapper>
@@ -208,13 +229,16 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                         <Select onChange={this.dropdownChange} style={{width: '500px'}}>
                             {
                                 this.state.galleries && this.state.galleries.map((gallery: IGallery) =>
-                                    <Option value={gallery.id}>{gallery.title}</Option>
+                                    <Option key={gallery.id} value={gallery.id}>{gallery.title}</Option>
                                 )
                             }
                         </Select>
                     </div>
                     <div>
                         <input type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
+                    </div>
+                    <div style={{width: '25%'}}>
+                        <Button onClick={this.uploadNewImage}>Create</Button>
                     </div>
                 </FormWrapper>
             </Wrapper>

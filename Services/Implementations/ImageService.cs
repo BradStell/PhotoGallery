@@ -51,6 +51,7 @@ namespace PhotoGallery.Services.Implementations
 
         public void UploadNewImage(Image image)
         {
+            _imageRepository.UploadNewImage(image);
             // _db.Images.Add(image);
             // _db.SaveChanges();
         }
