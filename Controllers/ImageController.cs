@@ -40,21 +40,20 @@ namespace PhotoGallery.Controllers
         }
 
         [HttpPost("[action]")]  // TODO pass in as object not string
-        public async Task<IActionResult> UploadImage(IFormFile file, string imageData)
+        public IActionResult UploadImage(IFormFile file, string imageData)
         {
-            Image image = JsonConvert.DeserializeObject<Image>(imageData);
-            image.PathName = file.FileName;
-
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "Gallery", file.FileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
+            try
             {
-                await file.CopyToAsync(stream);
+                Image image = JsonConvert.DeserializeObject<Image>(imageData);
+                _imageService.UploadNewImage(file, image);
+
+                return Ok();
             }
-
-            _imageService.UploadNewImage(image);
-
-            return null;
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+                return BadRequest();
+            }
         }
     }
 }

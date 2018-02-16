@@ -6,17 +6,21 @@ using PhotoGallery.Models;
 using PhotoGallery.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using PhotoGallery.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace PhotoGallery.Services.Implementations
 {
     public class ImageService : IImageService
     {
         private readonly IImageRepository _imageRepository;
+        private readonly IFileSystemRepository _fileSystemRepository;
         private readonly ILogger _logger;
 
-        public ImageService(IImageRepository imageRepository, ILogger<ImageService> logger)
+        public ImageService(IImageRepository imageRepository, IFileSystemRepository fileSystemRepository, ILogger<ImageService> logger)
         {
             _imageRepository = imageRepository;
+            _fileSystemRepository = fileSystemRepository;
             _logger = logger;
         }
 
@@ -49,11 +53,19 @@ namespace PhotoGallery.Services.Implementations
             }
         }
 
-        public void UploadNewImage(Image image)
+        public void UploadNewImage(IFormFile file, Image image)
         {
-            _imageRepository.UploadNewImage(image);
-            // _db.Images.Add(image);
-            // _db.SaveChanges();
+            try
+            {
+                image.PathName = file.FileName; // TODO set this on client
+
+                _fileSystemRepository.SaveNewFile(file);
+                _imageRepository.UploadNewImage(image);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error", ex);
+            }
         }
     }
 }
