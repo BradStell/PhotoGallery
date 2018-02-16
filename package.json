@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "react-autobind": "1.0.6",
-    "styled-components": "^2.4.0"
+    "styled-components": "^2.4.0",
+    "uuid": "^3.2.1"
   }
 }

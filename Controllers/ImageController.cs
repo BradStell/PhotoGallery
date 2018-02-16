@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PhotoGallery.Models;
@@ -33,6 +34,12 @@ namespace PhotoGallery.Controllers
                 _logger.LogError("Error", ex);
                 return BadRequest();
             }
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult UploadImage(IFormFile file)
+        {
+            return null;
         }
 
         [HttpGet("[action]")]

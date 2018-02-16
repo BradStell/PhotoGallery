@@ -5,7 +5,7 @@ export interface IImage {
     title: string;
     isCarouselImage: boolean;
     gallery_Id: string;
-    gallery: IGallery;
+    gallery?: IGallery;
 }
 
 export interface IGallery {
