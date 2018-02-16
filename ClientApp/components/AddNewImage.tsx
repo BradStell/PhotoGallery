@@ -109,6 +109,7 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         if (file && file.type.match('image.*')) {
             const form = new FormData();
             form.append('file', file);
+            form.append('name', 'brad');
 
             fetch('/api/Image/UploadImage',{
                 credentials: 'include',
@@ -119,6 +120,22 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                 body: form
             });
         }
+    }
+
+    private propertyValueChanged(propertyName: string, value: any) {
+        this.setState((prevState) => {
+            return {
+                ...prevState,
+                newImage: {
+                    ...prevState.newImage,
+                    [propertyName]: value
+                }
+            };
+        });
+    }
+
+    public componentWillUpdate() {
+        return true;
     }
 
     public render() {
@@ -134,9 +151,9 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
             <Wrapper>
                 <SubTitle>Add New Image</SubTitle>
                 <label>Title</label>
-                <input type="text" />
+                <input type="text" value={this.state.newImage.title} onChange={(event) => this.propertyValueChanged('title', event.target.value)} />
                 <label>Is image on carousel?</label>
-                <input type="checkbox" />
+                <input type="checkbox" checked={this.state.newImage.isCarouselImage} />
                 <label>Belongs to gallery</label>
                 <select>
                     <option>Test 1</option>

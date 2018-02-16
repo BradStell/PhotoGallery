@@ -37,7 +37,7 @@ namespace PhotoGallery.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult UploadImage(IFormFile file)
+        public IActionResult UploadImage(IFormFile file, string name)
         {
             return null;
         }
