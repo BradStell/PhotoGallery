@@ -31,7 +31,10 @@ module.exports = (env) => {
                 'antd/lib/input/style/index.css',
                 'antd/lib/checkbox',
                 'antd/lib/checkbox/style/css',
-                'antd/lib/checkbox/style/index.css'
+                'antd/lib/checkbox/style/index.css',
+                'antd/lib/select',
+                'antd/lib/select/style/css',
+                'antd/lib/select/style/index.css'
             ],
         },
         output: {

@@ -4,10 +4,13 @@ import DataService from '../services/dataService';
 import { IGallery, IImage } from '../interfaces/ModelInterfaces';
 import styled from 'styled-components';
 import uuid from 'uuid/v4';
-import { Input, Checkbox } from 'antd';
+import { Input, Checkbox, Select } from 'antd';
+
+const Option = Select.Option;
 
 interface ILocalState {
     newImage: IImage;
+    galleries: IGallery[];
 }
 
 interface ILocalProps {
@@ -113,10 +116,22 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                 title: 'New Image',
                 isCarouselImage: false,
                 gallery_Id: null
-            }
+            },
+            galleries: null
         };
 
         autobind(this);
+
+        this.loadGalleries();
+    }
+
+    private loadGalleries() {
+        DataService.getGalleries().then((result) => {
+            this.setState((prevState) => ({
+                ...prevState,
+                galleries: result
+            }));
+        });
     }
 
     private fileIsSelected(event: any): void {
@@ -163,6 +178,10 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         }));
     }
 
+    private dropdownChange(value) {
+        console.log(value);
+    }
+
     public render() {
         const RemoveIconButton: JSX.Element = (
             <StyledRemoveIconButton
@@ -182,16 +201,17 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                     </div>
                     <div>
                         <StyledLabel>Is image on carousel?</StyledLabel>
-                        {/* <input type="checkbox" checked={this.state.newImage.isCarouselImage} onChange={this.changeCheckbox} /> */}
                         <Checkbox checked={this.state.newImage.isCarouselImage} onChange={this.changeCheckbox} />
                     </div>
                     <div>
                         <StyledLabel>Belongs to gallery</StyledLabel>
-                        <select>
-                            <option>Test 1</option>
-                            <option>Test 2</option>
-                            <option>Test 3</option>
-                        </select>
+                        <Select onChange={this.dropdownChange} style={{width: '500px'}}>
+                            {
+                                this.state.galleries && this.state.galleries.map((gallery: IGallery) =>
+                                    <Option value={gallery.id}>{gallery.title}</Option>
+                                )
+                            }
+                        </Select>
                     </div>
                     <div>
                         <input type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
