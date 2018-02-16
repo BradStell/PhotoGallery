@@ -4,6 +4,7 @@ import DataService from '../services/dataService';
 import { IGallery, IImage } from '../interfaces/ModelInterfaces';
 import styled from 'styled-components';
 import uuid from 'uuid/v4';
+import { Input, Checkbox } from 'antd';
 
 interface ILocalState {
     newImage: IImage;
@@ -83,6 +84,21 @@ const StyledRemoveIconButton: any = styled.button`
     width: 25px;
 `;
 
+const FormWrapper: any = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+`;
+
+const StyledLabel: any = styled.label`
+    font-family: 'Open Sans';
+    font-weight: 700;
+    color: #828282;
+`;
+
+const StyledInput: any = styled(Input)`
+    width: 25% !important;
+`;
+
 export default class AddNewImage extends React.Component<ILocalProps, ILocalState> {
 
     private fileName: string;
@@ -123,19 +139,28 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
     }
 
     private propertyValueChanged(propertyName: string, value: any) {
-        this.setState((prevState) => {
-            return {
-                ...prevState,
-                newImage: {
-                    ...prevState.newImage,
-                    [propertyName]: value
-                }
-            };
-        });
+        this.setState((prevState) => ({
+            ...prevState,
+            newImage: {
+                ...prevState.newImage,
+                [propertyName]: value
+            }
+        }));
     }
 
     public componentWillUpdate() {
         return true;
+    }
+
+    private changeCheckbox(event: any) {
+        const val = event.target.checked;
+        this.setState((prevState) => ({
+            ...prevState,
+            newImage: {
+                ...prevState.newImage,
+                isCarouselImage: val
+            }
+        }));
     }
 
     public render() {
@@ -150,27 +175,39 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         return (
             <Wrapper>
                 <SubTitle>Add New Image</SubTitle>
-                <label>Title</label>
-                <input type="text" value={this.state.newImage.title} onChange={(event) => this.propertyValueChanged('title', event.target.value)} />
-                <label>Is image on carousel?</label>
-                <input type="checkbox" checked={this.state.newImage.isCarouselImage} />
-                <label>Belongs to gallery</label>
-                <select>
-                    <option>Test 1</option>
-                    <option>Test 2</option>
-                    <option>Test 3</option>
-                </select>
-                {/* <InputWrapper>
-                    <CustomReadOnlyInput value={'Choose File...'} className={'CustomReadOnlyInput'} />
-                    <CustomLabel htmlFor="file">Browse</CustomLabel>
-                    <CustomInput type="file" name="file" id="file" onChange={this.fileSelected} accept=".png,.jpeg,.jpg,.gif" />
-                </InputWrapper>
-                <ThumbnailWrapper>
-                    <Image className="thumb" src={null} />
-                    {null ? RemoveIconButton : ''}
-                </ThumbnailWrapper> */}
-                <input type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
+                <FormWrapper>
+                    <div>
+                        <StyledLabel>Title</StyledLabel>
+                        <StyledInput value={this.state.newImage.title} onChange={(event) => this.propertyValueChanged('title', event.target.value)} />
+                    </div>
+                    <div>
+                        <StyledLabel>Is image on carousel?</StyledLabel>
+                        {/* <input type="checkbox" checked={this.state.newImage.isCarouselImage} onChange={this.changeCheckbox} /> */}
+                        <Checkbox checked={this.state.newImage.isCarouselImage} onChange={this.changeCheckbox} />
+                    </div>
+                    <div>
+                        <StyledLabel>Belongs to gallery</StyledLabel>
+                        <select>
+                            <option>Test 1</option>
+                            <option>Test 2</option>
+                            <option>Test 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
+                    </div>
+                </FormWrapper>
             </Wrapper>
         );
     }
 }
+
+{/* <InputWrapper>
+    <CustomReadOnlyInput value={'Choose File...'} className={'CustomReadOnlyInput'} />
+    <CustomLabel htmlFor="file">Browse</CustomLabel>
+    <CustomInput type="file" name="file" id="file" onChange={this.fileSelected} accept=".png,.jpeg,.jpg,.gif" />
+</InputWrapper>
+<ThumbnailWrapper>
+    <Image className="thumb" src={null} />
+    {null ? RemoveIconButton : ''}
+</ThumbnailWrapper> */}
