@@ -19,16 +19,18 @@ interface ILocalState {
 interface ILocalProps {
 }
 
+// TODO refactor out common styles into own file
 const Wrapper: any = styled.div`
     width: 80vw;
     border: 3px solid #929292;
     border-radius: 4px;
 `;
 
-const SubTitle: any = styled.h4`
+const SubTitle: any = styled.h2`
     font-family: 'Open Sans';
     font-weight: 500;
-    font-size: 120%;
+    font-size: 140%;
+    color: #2CB1A8;
 `;
 
 const CustomLabel: any = styled.label`
@@ -219,13 +221,14 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         );
 
         return (
-            <Wrapper>
-                <div style={{textAlign: 'center'}}>
+            <div>
+                <div style={{textAlign: 'left'}}>
                     <SubTitle>Add New Image</SubTitle>
                 </div>
-                <div style={{ display: 'flex', flexFlow: 'row nowrap' }}>
+                <Wrapper>
+                <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingTop: '20px' }}>
                     <FormWrapper style={{ width: '50%' }}>
-                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em' }}>
+                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em', height: '3em' }}>
                             <div style={{ width: '30%' }}>
                                 <StyledLabel>Title</StyledLabel>
                             </div>
@@ -233,7 +236,7 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                                 <StyledInput value={this.state.newImage.title} onChange={(event) => this.propertyValueChanged('title', event.target.value)} />
                             </div>
                         </div>
-                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em' }}>
+                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em', height: '3em' }}>
                             <div style={{ width: '30%' }}>
                                 <StyledLabel>Is image on carousel?</StyledLabel>
                             </div>
@@ -241,7 +244,7 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                                 <Checkbox checked={this.state.newImage.isCarouselImage} onChange={this.changeCheckbox} />
                             </div>
                         </div>
-                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em' }}>
+                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em', height: '3em' }}>
                             <div style={{ width: '30%' }}>
                                 <StyledLabel>Belongs to gallery</StyledLabel>
                             </div>
@@ -262,7 +265,7 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                     <div style={{ width: '50%' }}>
                         <div style={{ display: 'flex', flexFlow: 'column nowrap', paddingBottom: '1em' }}>
                             <div style={{ width: '100%', display: 'flex', flexFlow: 'row nowrap' }}>
-                                <CustomReadOnlyInput value={this.state.imageBlob && this.state.imageBlob.name || 'Choose File...'} />
+                                <CustomReadOnlyInput value={this.state.imageBlob && this.state.imageBlob.name || 'Choose Image...'} />
                                 <CustomLabel htmlFor='file'>Browse</CustomLabel>
                                 <input style={{ display: 'none', height: '0.1px', width: '0.1px', visibility: 'hidden' }} id='file' name='file' type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
                             </div>
@@ -273,7 +276,8 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                         </div>
                     </div>
                 </div>
-            </Wrapper>
+                </Wrapper>
+            </div>
         );
     }
 }
