@@ -255,6 +255,9 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                                 </Select>
                             </div>
                         </div>
+                        <div style={{width: '25%', padding: '10px', flexGrow: 1, display: 'flex' }}>
+                            <Button style={{ alignSelf: 'flex-end' }} onClick={this.uploadNewImage}>Create</Button>
+                        </div>
                     </FormWrapper>
                     <div style={{ width: '50%' }}>
                         <div style={{ display: 'flex', flexFlow: 'column nowrap', paddingBottom: '1em' }}>
@@ -269,9 +272,6 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                             </ThumbnailWrapper>
                         </div>
                     </div>
-                </div>
-                <div style={{width: '25%'}}>
-                    <Button onClick={this.uploadNewImage}>Create</Button>
                 </div>
             </Wrapper>
         );

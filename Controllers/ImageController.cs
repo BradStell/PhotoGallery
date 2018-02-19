@@ -45,7 +45,7 @@ namespace PhotoGallery.Controllers
             try
             {
                 Image image = JsonConvert.DeserializeObject<Image>(imageData);
-                // _imageService.UploadNewImage(file, image);
+                _imageService.UploadNewImage(file, image);
 
                 return Ok();
             }

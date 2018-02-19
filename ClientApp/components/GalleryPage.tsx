@@ -93,11 +93,11 @@ export default class GalleryPage extends React.Component<RouteComponentProps<{}>
                         )
                     }
                 </ImageWrapper>
-                <div style={{ width: '100vw', position: 'absolute', top: 0, left: 0, display: 'inline-block', verticalAlign: 'middle', zIndex: 1000, opacity: 0.5 }}>
+                {/* <div style={{ width: '100vw', position: 'absolute', top: 0, left: 0, display: 'inline-block', verticalAlign: 'middle', zIndex: 1000, opacity: 0.5 }}>
                     <div style={{ opacity: 1, textAlign: 'center', position: 'absolute', top: '100px', left: '300px' }}>
                         <GalleryImage style={{ opacity: 1, width: '1200px', height: '700px', backgroundImage: `url('GalleryImages/lafoten.jpg')` }} />
                     </div>
-                </div>
+                </div> */}
             </Wrapper>
         );
     }
