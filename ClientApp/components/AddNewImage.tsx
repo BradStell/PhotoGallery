@@ -5,6 +5,7 @@ import { IGallery, IImage } from '../interfaces/ModelInterfaces';
 import styled from 'styled-components';
 import uuid from 'uuid/v4';
 import { Input, Checkbox, Select, Button } from 'antd';
+import ReadOnlyInput from './ReadOnlyInput';
 
 const Option = Select.Option;
 
@@ -12,6 +13,7 @@ interface ILocalState {
     newImage: IImage;
     galleries: IGallery[];
     imageBlob: any;
+    imageBase64String: string;
 }
 
 interface ILocalProps {
@@ -25,6 +27,8 @@ const Wrapper: any = styled.div`
 
 const SubTitle: any = styled.h4`
     font-family: 'Open Sans';
+    font-weight: 500;
+    font-size: 120%;
 `;
 
 const CustomLabel: any = styled.label`
@@ -60,9 +64,10 @@ const CustomInput: any = styled.input`
     width: 0.1px;
 `;
 
-const CustomReadOnlyInput: any = styled(CustomInput)`
+const CustomReadOnlyInput: any = styled(ReadOnlyInput)`
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+    width: 40%;
 `;
 
 const ThumbnailWrapper: any = styled.div`
@@ -71,11 +76,15 @@ const ThumbnailWrapper: any = styled.div`
 `;
 
 const Image: any = styled.img`
+    height: 200px;
+`;
+
+const ImageContainer: any = styled.div`
     border: 1px solid lightgray;
-    max-height: 100px;
-    max-width: 100px;
-    min-height: 75px;
-    min-width: 75px;
+    max-height: 200px;
+    min-width: 100px;
+    width: 20px;
+    max-width: 500px;
 `;
 
 const StyledRemoveIconButton: any = styled.button`
@@ -97,15 +106,14 @@ const StyledLabel: any = styled.label`
     font-family: 'Open Sans';
     font-weight: 700;
     color: #828282;
+    margin-left: 20px;
 `;
 
 const StyledInput: any = styled(Input)`
-    width: 25% !important;
+    width: 70% !important;
 `;
 
 export default class AddNewImage extends React.Component<ILocalProps, ILocalState> {
-
-    private fileName: string;
 
     constructor(props: ILocalProps) {
         super(props);
@@ -119,7 +127,8 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
                 gallery_Id: null
             },
             galleries: null,
-            imageBlob: null
+            imageBlob: null,
+            imageBase64String: null
         };
 
         autobind(this);
@@ -140,20 +149,17 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         const file: any = event.target.files[0];
 
         if (file && file.type.match('image.*')) {
-            // const form = new FormData();
-            // form.append('file', file);
-            // form.append('name', 'brad');
-
-            // fetch('/api/Image/UploadImage',{
-            //     credentials: 'include',
-            //     method: 'POST',
-            //     headers: {
-            //         'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
-            //     },
-            //     body: form
-            // });
             this.setState((prevState) => ({...prevState, imageBlob: file}));
+
+            const fileReader: FileReader = new FileReader();
+            fileReader.onload = this.onImageLoad;
+            fileReader.readAsDataURL(file);
         }
+    }
+
+    private onImageLoad(event: any) {
+        const base64 = event.target.result;
+        this.setState((prevState) => ({ ...prevState, imageBase64String: base64 }));
     }
 
     // TODO - refactor out ant components to new react components and consolidate the property changed function to be generic
@@ -204,54 +210,70 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
     }
 
     public render() {
-        // const RemoveIconButton: JSX.Element = (
-        //     <StyledRemoveIconButton
-        //         content={'x'}
-        //         size='small'
-        //         onClick={() => null}
-        //     />
-        // );
+        const RemoveIconButton: JSX.Element = (
+            <StyledRemoveIconButton
+                content={'x'}
+                size='small'
+                onClick={() => null}
+            />
+        );
 
         return (
             <Wrapper>
-                <SubTitle>Add New Image</SubTitle>
-                <FormWrapper>
-                    <div>
-                        <StyledLabel>Title</StyledLabel>
-                        <StyledInput value={this.state.newImage.title} onChange={(event) => this.propertyValueChanged('title', event.target.value)} />
+                <div style={{textAlign: 'center'}}>
+                    <SubTitle>Add New Image</SubTitle>
+                </div>
+                <div style={{ display: 'flex', flexFlow: 'row nowrap' }}>
+                    <FormWrapper style={{ width: '50%' }}>
+                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em' }}>
+                            <div style={{ width: '30%' }}>
+                                <StyledLabel>Title</StyledLabel>
+                            </div>
+                            <div style={{ width: '30%' }}>
+                                <StyledInput value={this.state.newImage.title} onChange={(event) => this.propertyValueChanged('title', event.target.value)} />
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em' }}>
+                            <div style={{ width: '30%' }}>
+                                <StyledLabel>Is image on carousel?</StyledLabel>
+                            </div>
+                            <div style={{ width: '30%' }}>
+                                <Checkbox checked={this.state.newImage.isCarouselImage} onChange={this.changeCheckbox} />
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex', flexFlow: 'row nowrap', paddingBottom: '1em' }}>
+                            <div style={{ width: '30%' }}>
+                                <StyledLabel>Belongs to gallery</StyledLabel>
+                            </div>
+                            <div style={{ width: '30%' }}>
+                                <Select onChange={this.dropdownChange} style={{width: '70%'}}>
+                                    {
+                                        this.state.galleries && this.state.galleries.map((gallery: IGallery) =>
+                                            <Option key={gallery.id} value={gallery.id}>{gallery.title}</Option>
+                                        )
+                                    }
+                                </Select>
+                            </div>
+                        </div>
+                    </FormWrapper>
+                    <div style={{ width: '50%' }}>
+                        <div style={{ display: 'flex', flexFlow: 'column nowrap', paddingBottom: '1em' }}>
+                            <div style={{ width: '100%', display: 'flex', flexFlow: 'row nowrap' }}>
+                                <CustomReadOnlyInput value={this.state.imageBlob && this.state.imageBlob.name || 'Choose File...'} />
+                                <CustomLabel htmlFor='file'>Browse</CustomLabel>
+                                <input style={{ display: 'none', height: '0.1px', width: '0.1px', visibility: 'hidden' }} id='file' name='file' type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
+                            </div>
+                            <ThumbnailWrapper>
+                                <Image className="thumb" src={this.state.imageBase64String} />
+                                {this.state.imageBlob ? RemoveIconButton : ''}
+                            </ThumbnailWrapper>
+                        </div>
                     </div>
-                    <div>
-                        <StyledLabel>Is image on carousel?</StyledLabel>
-                        <Checkbox checked={this.state.newImage.isCarouselImage} onChange={this.changeCheckbox} />
-                    </div>
-                    <div>
-                        <StyledLabel>Belongs to gallery</StyledLabel>
-                        <Select onChange={this.dropdownChange} style={{width: '500px'}}>
-                            {
-                                this.state.galleries && this.state.galleries.map((gallery: IGallery) =>
-                                    <Option key={gallery.id} value={gallery.id}>{gallery.title}</Option>
-                                )
-                            }
-                        </Select>
-                    </div>
-                    <div>
-                        <input type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
-                    </div>
-                    <div style={{width: '25%'}}>
-                        <Button onClick={this.uploadNewImage}>Create</Button>
-                    </div>
-                </FormWrapper>
+                </div>
+                <div style={{width: '25%'}}>
+                    <Button onClick={this.uploadNewImage}>Create</Button>
+                </div>
             </Wrapper>
         );
     }
 }
-
-{/* <InputWrapper>
-    <CustomReadOnlyInput value={'Choose File...'} className={'CustomReadOnlyInput'} />
-    <CustomLabel htmlFor="file">Browse</CustomLabel>
-    <CustomInput type="file" name="file" id="file" onChange={this.fileSelected} accept=".png,.jpeg,.jpg,.gif" />
-</InputWrapper>
-<ThumbnailWrapper>
-    <Image className="thumb" src={null} />
-    {null ? RemoveIconButton : ''}
-</ThumbnailWrapper> */}
