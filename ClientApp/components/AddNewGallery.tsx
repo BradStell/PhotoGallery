@@ -110,6 +110,7 @@ export default class AddNewGallery extends React.Component<ILocalProps, ILocalSt
         this.setState((prevState) => ({ ...prevState, imageBase64String: base64 }));
     }
 
+    // TODO clean up all inline styles
     public render() {
 
         return (

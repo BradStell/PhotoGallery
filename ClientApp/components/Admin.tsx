@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
@@ -16,18 +16,19 @@ const Wrapper = styled.div`
 `;
 
 export default class Admin extends Component<RouteComponentProps<{}>, ILocalState> {
-  constructor() {
-    super();
-    autoBind(this);
-  }
+    constructor() {
+        super();
+        autoBind(this);
+    }
 
-  public render () {
-    return (
-      <Wrapper>
-        <h1 style={{ color: '#2CB1A8' }}>Admin Page</h1>
-        <AddNewImage />
-        <AddNewGallery />
-      </Wrapper>
-    );
-  }
+    // TODO clean up all inline styles
+    public render() {
+        return (
+            <Wrapper>
+                <h1 style={{ color: '#2CB1A8' }}>Admin Page</h1>
+                <AddNewImage />
+                <AddNewGallery />
+            </Wrapper>
+        );
+    }
 }

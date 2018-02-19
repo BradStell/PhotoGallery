@@ -211,6 +211,7 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         });
     }
 
+    // TODO clean up all inline styles
     public render() {
         const RemoveIconButton: JSX.Element = (
             <StyledRemoveIconButton
