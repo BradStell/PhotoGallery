@@ -12,6 +12,7 @@ const Option = Select.Option;
 interface ILocalState {
     imageBlob: any;
     imageBase64String: string;
+    newGallery: IGallery;
 }
 
 interface ILocalProps {
@@ -87,7 +88,12 @@ export default class AddNewGallery extends React.Component<ILocalProps, ILocalSt
 
         this.state = {
             imageBlob: null,
-            imageBase64String: null
+            imageBase64String: null,
+            newGallery: {
+                id: uuid(),
+                title: 'New Gallery',
+                coverImage_Id: null
+            }
         };
 
         autobind(this);
@@ -110,6 +116,32 @@ export default class AddNewGallery extends React.Component<ILocalProps, ILocalSt
         this.setState((prevState) => ({ ...prevState, imageBase64String: base64 }));
     }
 
+    private createNewGallery() {
+        const form = new FormData();
+        form.append('file', this.state.imageBlob);
+        form.append('galleryData', JSON.stringify(this.state.newGallery));
+
+        // TODO put in service
+        fetch('/api/Gallery/CreateGallery',{
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+            },
+            body: form
+        });
+    }
+
+    private propertyValueChanged(propertyName: string, value: string) {
+        this.setState((prevState) => ({
+            ...prevState,
+            newGallery: {
+                ...prevState.newGallery,
+                [propertyName]: value
+            }
+        }));
+    }
+
     // TODO clean up all inline styles
     public render() {
 
@@ -126,19 +158,19 @@ export default class AddNewGallery extends React.Component<ILocalProps, ILocalSt
                                 <StyledLabel>Title</StyledLabel>
                             </div>
                             <div style={{ width: '30%' }}>
-                                <StyledInput value={'this.state.newImage.title'} onChange={(event) => null} />
+                                <StyledInput value={this.state.newGallery.title} onChange={(event) => this.propertyValueChanged('title', event.target.value)} />
                             </div>
                         </div>
                         <div style={{width: '25%', padding: '10px', flexGrow: 1, display: 'flex' }}>
-                            <Button style={{ alignSelf: 'flex-end' }} onClick={() => null}>Create</Button>
+                            <Button style={{ alignSelf: 'flex-end' }} onClick={this.createNewGallery}>Create</Button>
                         </div>
                     </FormWrapper>
                     <div style={{ width: '50%' }}>
                         <div style={{ display: 'flex', flexFlow: 'column nowrap', paddingBottom: '1em' }}>
                             <div style={{ width: '100%', display: 'flex', flexFlow: 'row nowrap' }}>
                                 <CustomReadOnlyInput value={this.state.imageBlob && this.state.imageBlob.name || 'Choose Cover Image...'} />
-                                <CustomLabel htmlFor='file'>Browse</CustomLabel>
-                                <input style={{ display: 'none', height: '0.1px', width: '0.1px', visibility: 'hidden' }} id='file' name='file' type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
+                                <CustomLabel htmlFor='galleryFile'>Browse</CustomLabel>
+                                <input style={{ display: 'none', height: '0.1px', width: '0.1px', visibility: 'hidden' }} id='galleryFile' name='galleryFile' type="file" onChange={this.fileIsSelected} accept=".png,.jpeg,.jpg,.gif" />
                             </div>
                             <ThumbnailWrapper>
                                 <Image className="thumb" src={this.state.imageBase64String} />

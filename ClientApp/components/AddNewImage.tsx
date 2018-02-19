@@ -201,6 +201,7 @@ export default class AddNewImage extends React.Component<ILocalProps, ILocalStat
         form.append('file', this.state.imageBlob);
         form.append('imageData', JSON.stringify(this.state.newImage));
 
+        // TODO put in service
         fetch('/api/Image/UploadImage',{
             credentials: 'include',
             method: 'POST',

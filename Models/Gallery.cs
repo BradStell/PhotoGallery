@@ -11,7 +11,7 @@ namespace PhotoGallery.Models
         [Key]
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public DateTime CreateDateTime { get; set; }
+        public DateTime CreateDateTime { get; set; } 
         public Guid? CoverImage_Id { get; set; }
         [ForeignKey("CoverImage_Id")]
         public Image CoverImage { get; set; }
